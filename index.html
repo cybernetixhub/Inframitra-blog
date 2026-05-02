@@ -9,78 +9,127 @@
 <meta property="og:url" content="https://blog.inframitra.com">
 <title>InfraMitra Blog – Smarter IT Infrastructure for India</title>
 <link rel="canonical" href="https://blog.inframitra.com">
+<link rel="icon" type="image/svg+xml" href="logo-icon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
-:root{--blue:#1e3a5f;--blue-mid:#2E5090;--green:#1a5a28;--green-mid:#2D8A3E;--green-light:#6dd48a;--cream:#f7f5f0;--ink:#1a1a18;--ink-2:#3d3d39;--ink-3:#717169;--border:#e2e0d8;--white:#ffffff;--serif:'DM Serif Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif}
+:root{
+  --dark:#0C1222;
+  --dark-2:#162032;
+  --blue:#38BDF8;
+  --teal:#34D399;
+  --purple:#818CF8;
+  --green-mid:#2D8A3E;
+  --green:#1a5a28;
+  --cream:#f7f5f0;
+  --ink:#1a1a18;
+  --ink-2:#3d3d39;
+  --ink-3:#717169;
+  --border:#e2e0d8;
+  --white:#ffffff;
+  --serif:'DM Serif Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-height:1.6}
 a{text-decoration:none;color:inherit}
 
-.nav{position:sticky;top:0;z-index:100;background:var(--blue);padding:0 40px;height:62px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 20px rgba(0,0,0,.25)}
-.nav-logo{display:flex;align-items:center;gap:10px}
-.brand{font-size:16px;font-weight:600;color:#fff;letter-spacing:-.3px;display:block}
-.domain{font-size:10px;color:rgba(255,255,255,.45);letter-spacing:1.2px;text-transform:uppercase;display:block}
+/* NAV */
+.nav{
+  position:sticky;top:0;z-index:100;
+  background:var(--dark);
+  padding:0 40px;height:66px;
+  display:flex;align-items:center;justify-content:space-between;
+  box-shadow:0 2px 24px rgba(0,0,0,.4);
+  border-bottom:1px solid rgba(56,189,248,0.1);
+}
+.nav-logo{display:flex;align-items:center;gap:12px}
+.nav-logo img{width:40px;height:40px;border-radius:10px}
+.nav-wordmark{display:flex;flex-direction:column}
+.nav-wordmark .brand{font-size:16px;font-weight:600;color:#fff;letter-spacing:-.3px;line-height:1.1}
+.nav-wordmark .domain{font-size:10px;color:rgba(255,255,255,.35);letter-spacing:1.4px;text-transform:uppercase}
 .nav-links{display:flex;gap:28px}
-.nav-links a{font-size:13px;color:rgba(255,255,255,.7);transition:color .2s}
-.nav-links a:hover{color:var(--green-light)}
-.nav-cta{background:var(--green-mid);color:#fff;padding:8px 18px;border-radius:6px;font-size:13px;font-weight:500}
+.nav-links a{font-size:13px;color:rgba(255,255,255,.6);transition:color .2s}
+.nav-links a:hover{color:var(--blue)}
+.nav-cta{
+  background:linear-gradient(135deg,#38BDF8,#34D399);
+  color:var(--dark);
+  padding:9px 20px;border-radius:8px;
+  font-size:13px;font-weight:600;
+  transition:opacity .2s;
+}
+.nav-cta:hover{opacity:.88}
 
-.hero{background:linear-gradient(150deg,#0d1f35 0%,#0f2d18 100%);padding:72px 40px 0;overflow:hidden;position:relative}
-.hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 440px;gap:60px;align-items:end;position:relative;z-index:1}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--green-light);margin-bottom:20px}
-.hero-eyebrow span{width:24px;height:1px;background:var(--green-light);display:inline-block}
-.hero h1{font-family:var(--serif);font-size:48px;font-weight:400;line-height:1.12;color:#fff;margin-bottom:20px}
-.hero h1 em{font-style:italic;color:var(--green-light)}
-.hero-sub{font-size:16px;color:rgba(255,255,255,.6);line-height:1.75;max-width:480px;margin-bottom:32px}
+/* HERO */
+.hero{
+  background:var(--dark);
+  padding:80px 40px 0;
+  overflow:hidden;position:relative;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 50% at 70% 40%, rgba(56,189,248,0.07) 0%, transparent 70%),
+             radial-gradient(ellipse 40% 40% at 30% 70%, rgba(52,211,153,0.06) 0%, transparent 60%);
+}
+.hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 460px;gap:60px;align-items:end;position:relative;z-index:1}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--teal);margin-bottom:22px}
+.hero-eyebrow span{width:24px;height:1px;background:var(--teal);display:inline-block}
+.hero h1{font-family:var(--serif);font-size:50px;font-weight:400;line-height:1.1;color:#fff;margin-bottom:20px}
+.hero h1 em{font-style:italic;color:var(--blue)}
+.hero-sub{font-size:16px;color:rgba(255,255,255,.55);line-height:1.8;max-width:480px;margin-bottom:32px}
 .hero-pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px}
-.pill{font-size:12px;font-weight:500;padding:6px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.75)}
-.pill-g{background:rgba(45,138,62,.25);border-color:rgba(45,138,62,.4);color:var(--green-light)}
-.pill-b{background:rgba(46,80,144,.3);border-color:rgba(89,140,210,.4);color:#89b8f7}
-.hero-btns{display:flex;gap:12px;padding-bottom:56px}
-.btn-p{background:var(--green-mid);color:#fff;padding:12px 28px;border-radius:6px;font-size:14px;font-weight:500;transition:all .2s;display:inline-block}
-.btn-p:hover{background:var(--green);transform:translateY(-1px)}
-.btn-g{background:transparent;color:rgba(255,255,255,.7);padding:12px 28px;border-radius:6px;font-size:14px;font-weight:500;border:1px solid rgba(255,255,255,.2);transition:all .2s;display:inline-block}
-.btn-g:hover{border-color:rgba(255,255,255,.4);color:#fff}
+.pill{font-size:12px;font-weight:500;padding:6px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.65)}
+.pill-b{background:rgba(56,189,248,.15);border-color:rgba(56,189,248,.3);color:var(--blue)}
+.pill-t{background:rgba(52,211,153,.12);border-color:rgba(52,211,153,.3);color:var(--teal)}
+.hero-btns{display:flex;gap:12px;padding-bottom:60px}
+.btn-primary{background:linear-gradient(135deg,#38BDF8,#34D399);color:var(--dark);padding:13px 28px;border-radius:8px;font-size:14px;font-weight:600;transition:all .2s;display:inline-block}
+.btn-primary:hover{opacity:.88;transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:rgba(255,255,255,.65);padding:13px 28px;border-radius:8px;font-size:14px;font-weight:500;border:1px solid rgba(255,255,255,.18);transition:all .2s;display:inline-block}
+.btn-ghost:hover{border-color:rgba(255,255,255,.4);color:#fff}
 
-.vstrip{background:var(--blue)}
+/* VALUE STRIP */
+.vstrip{background:var(--dark-2);border-bottom:1px solid rgba(56,189,248,.08)}
 .vstrip-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
-.vchip{padding:22px 24px;border-right:1px solid rgba(255,255,255,.08)}
+.vchip{padding:24px 28px;border-right:1px solid rgba(255,255,255,.06)}
 .vchip:last-child{border-right:none}
-.vnum{font-family:var(--serif);font-size:28px;color:var(--green-light);margin-bottom:4px}
-.vlabel{font-size:13px;font-weight:500;color:rgba(255,255,255,.85);margin-bottom:2px}
-.vsub{font-size:11px;color:rgba(255,255,255,.4)}
+.vnum{font-family:var(--serif);font-size:30px;line-height:1;margin-bottom:6px;background:linear-gradient(135deg,var(--blue),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.vlabel{font-size:13px;font-weight:500;color:rgba(255,255,255,.8);margin-bottom:2px}
+.vsub{font-size:11px;color:rgba(255,255,255,.35)}
 
+/* MAIN */
 .main{max-width:1100px;margin:0 auto;padding:64px 40px 80px}
 .slabel{font-size:11px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase;color:var(--ink-3);margin-bottom:24px;display:flex;align-items:center;gap:10px}
 .slabel::after{content:'';flex:1;height:1px;background:var(--border)}
 
-.featured{display:grid;grid-template-columns:1fr 400px;border-radius:14px;overflow:hidden;border:1px solid var(--border);background:var(--white);margin-bottom:64px;box-shadow:0 8px 40px rgba(0,0,0,.06)}
-.fvis{background:#0d1f35;min-height:340px;overflow:hidden}
+/* FEATURED */
+.featured{display:grid;grid-template-columns:1fr 420px;border-radius:16px;overflow:hidden;border:1px solid var(--border);background:var(--white);margin-bottom:64px;box-shadow:0 8px 48px rgba(0,0,0,.07)}
+.fvis{background:var(--dark);min-height:340px;overflow:hidden}
 .fvis svg{width:100%;height:100%}
-.fbody{padding:40px;display:flex;flex-direction:column}
-.badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px;letter-spacing:.3px;margin-bottom:16px;width:fit-content}
+.fbody{padding:44px;display:flex;flex-direction:column}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px;letter-spacing:.3px;margin-bottom:18px;width:fit-content}
 .b-amc{background:#e1f5ee;color:#0a5c42}
 .b-cost{background:#eaf3de;color:#2e5c0d}
-.b-speed{background:#e6f1fb;color:#143f7a}
+.b-speed{background:#e3f2fd;color:#0d47a1}
 .b-sustain{background:#fef3e2;color:#7a4a08}
 .b-case{background:#f0eafb;color:#4a2080}
-.fbody h2{font-family:var(--serif);font-size:26px;font-weight:400;line-height:1.25;color:var(--ink);margin-bottom:14px}
-.fbody p{font-size:14px;color:var(--ink-3);line-height:1.75;flex-grow:1;margin-bottom:24px}
+.fbody h2{font-family:var(--serif);font-size:26px;font-weight:400;line-height:1.25;color:var(--ink);margin-bottom:16px}
+.fbody p{font-size:14px;color:var(--ink-3);line-height:1.8;flex-grow:1;margin-bottom:24px}
 .fmeta{display:flex;align-items:center;gap:16px;font-size:12px;color:var(--ink-3);margin-bottom:20px}
-.rbtn{display:inline-flex;align-items:center;gap:6px;background:var(--green-mid);color:#fff;padding:11px 22px;border-radius:6px;font-size:13px;font-weight:500;transition:all .2s;width:fit-content}
-.rbtn:hover{background:var(--green);transform:translateY(-1px)}
+.rbtn{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#38BDF8,#34D399);color:var(--dark);padding:12px 24px;border-radius:8px;font-size:13px;font-weight:600;transition:all .2s;width:fit-content}
+.rbtn:hover{opacity:.88;transform:translateY(-1px)}
 
+/* FILTERS */
 .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
 .fc{font-size:13px;padding:8px 18px;border-radius:20px;border:1px solid var(--border);color:var(--ink-2);background:var(--white);cursor:pointer;transition:all .2s}
-.fc:hover{border-color:var(--blue-mid);color:var(--blue-mid)}
-.fc.on{background:var(--blue);color:#fff;border-color:var(--blue);font-weight:500}
+.fc:hover{border-color:var(--dark);color:var(--dark)}
+.fc.on{background:var(--dark);color:#fff;border-color:var(--dark);font-weight:500}
 
+/* GRID */
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:64px}
-.card{background:var(--white);border-radius:12px;overflow:hidden;border:1px solid var(--border);transition:all .25s;cursor:pointer}
-.card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.1);border-color:#c8c5bb}
+.card{background:var(--white);border-radius:14px;overflow:hidden;border:1px solid var(--border);transition:all .25s;cursor:pointer}
+.card:hover{transform:translateY(-5px);box-shadow:0 20px 48px rgba(0,0,0,.1);border-color:#c8c5bb}
 .cvis{height:160px;overflow:hidden}
 .cvis svg{width:100%;height:100%}
 .cbody{padding:20px}
@@ -88,70 +137,93 @@ a{text-decoration:none;color:inherit}
 .cbody p{font-size:13px;color:var(--ink-3);line-height:1.65;margin-bottom:14px}
 .cfoot{display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid var(--border)}
 .cdate{font-size:11px;color:var(--ink-3)}
-.carrow{font-size:12px;font-weight:500;color:var(--green-mid)}
+.carrow{font-size:12px;font-weight:600;color:var(--dark);display:flex;align-items:center;gap:3px}
 
-.amc-banner{background:linear-gradient(135deg,#0d1f35 0%,#0f2d18 100%);border-radius:14px;padding:48px;margin-bottom:64px;display:grid;grid-template-columns:1fr 340px;gap:48px;align-items:center}
-.amc-banner h2{font-family:var(--serif);font-size:32px;font-weight:400;color:#fff;line-height:1.2;margin-bottom:12px}
-.amc-banner h2 em{font-style:italic;color:var(--green-light)}
-.amc-banner p{font-size:14px;color:rgba(255,255,255,.6);line-height:1.75;margin-bottom:24px}
-.amc-btn{background:var(--green-mid);color:#fff;padding:11px 22px;border-radius:6px;font-size:13px;font-weight:500;display:inline-block;transition:background .2s}
-.amc-btn:hover{background:var(--green)}
+/* AMC BANNER */
+.amc-banner{
+  background:var(--dark);
+  border-radius:16px;padding:52px;margin-bottom:64px;
+  display:grid;grid-template-columns:1fr 340px;gap:52px;align-items:center;
+  position:relative;overflow:hidden;
+  border:1px solid rgba(56,189,248,.12);
+}
+.amc-banner::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 50% 80% at 0% 50%,rgba(52,211,153,.07),transparent 60%),
+             radial-gradient(ellipse 40% 60% at 100% 50%,rgba(56,189,248,.06),transparent 60%);
+}
+.amc-banner>*{position:relative;z-index:1}
+.amc-banner h2{font-family:var(--serif);font-size:32px;font-weight:400;color:#fff;line-height:1.2;margin-bottom:14px}
+.amc-banner h2 em{font-style:italic;color:var(--teal)}
+.amc-banner p{font-size:14px;color:rgba(255,255,255,.55);line-height:1.8;margin-bottom:28px}
+.amc-btn{background:linear-gradient(135deg,#38BDF8,#34D399);color:var(--dark);padding:12px 24px;border-radius:8px;font-size:13px;font-weight:600;display:inline-block;transition:opacity .2s}
+.amc-btn:hover{opacity:.88}
 .tiers{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.tier{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:14px}
-.tname{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
-.t-bronze{color:#cd7f32}.t-silver{color:#a8a9ad}.t-gold{color:#ffd700}.t-plat{color:#b4f5ff}
-.tresp{font-size:13px;color:rgba(255,255,255,.75);margin-bottom:2px}
-.tprice{font-size:12px;color:rgba(255,255,255,.4)}
+.tier{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px}
+.tname{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px}
+.t-bronze{color:#e8a87c}
+.t-silver{color:#b0b8c8}
+.t-gold{color:#f6d860}
+.t-plat{color:var(--blue)}
+.tresp{font-size:13px;color:rgba(255,255,255,.7);margin-bottom:3px}
+.tprice{font-size:11px;color:rgba(255,255,255,.35)}
 
-.newsletter{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:48px;text-align:center;margin-bottom:64px}
-.newsletter h2{font-family:var(--serif);font-size:28px;font-weight:400;color:var(--ink);margin-bottom:10px}
+/* NEWSLETTER */
+.newsletter{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:52px;text-align:center;margin-bottom:64px}
+.newsletter h2{font-family:var(--serif);font-size:30px;font-weight:400;color:var(--ink);margin-bottom:10px}
 .newsletter p{font-size:14px;color:var(--ink-3);margin-bottom:28px}
 .nlform{display:flex;gap:10px;max-width:440px;margin:0 auto}
-.nlform input{flex:1;padding:12px 16px;border:1px solid var(--border);border-radius:6px;font-family:var(--sans);font-size:14px;color:var(--ink);background:var(--cream);outline:none}
-.nlform input:focus{border-color:var(--blue-mid);background:#fff}
-.nlform button{background:var(--green-mid);color:#fff;border:none;padding:12px 24px;border-radius:6px;font-family:var(--sans);font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap}
-.nlform button:hover{background:var(--green)}
+.nlform input{flex:1;padding:12px 16px;border:1px solid var(--border);border-radius:8px;font-family:var(--sans);font-size:14px;color:var(--ink);background:var(--cream);outline:none}
+.nlform input:focus{border-color:var(--dark);background:#fff}
+.nlform button{background:linear-gradient(135deg,#38BDF8,#34D399);color:var(--dark);border:none;padding:12px 24px;border-radius:8px;font-family:var(--sans);font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;transition:opacity .2s}
+.nlform button:hover{opacity:.88}
 
-footer{background:var(--blue);padding:40px}
+/* FOOTER */
+footer{background:var(--dark);padding:40px;border-top:1px solid rgba(56,189,248,.08)}
 .footer-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
 .flogo{display:flex;align-items:center;gap:10px}
-.fbrand{font-size:15px;font-weight:600;color:#fff}
-.fsub{font-size:11px;color:rgba(255,255,255,.4)}
+.flogo img{width:32px;height:32px;border-radius:8px}
+.fbrand{font-size:15px;font-weight:600;color:#fff;display:block}
+.fsub{font-size:11px;color:rgba(255,255,255,.3);display:block}
 .flinks{display:flex;gap:24px}
-.flinks a{font-size:12px;color:rgba(255,255,255,.5)}
-.flinks a:hover{color:rgba(255,255,255,.9)}
-.fcopy{font-size:11px;color:rgba(255,255,255,.3)}
+.flinks a{font-size:12px;color:rgba(255,255,255,.4);transition:color .2s}
+.flinks a:hover{color:rgba(255,255,255,.85)}
+.fcopy{font-size:11px;color:rgba(255,255,255,.25)}
 
-@media(max-width:900px){.hero-inner,.featured,.amc-banner{grid-template-columns:1fr}.hero-art{display:none}.grid{grid-template-columns:repeat(2,1fr)}.vstrip-inner{grid-template-columns:repeat(2,1fr)}.footer-inner{flex-direction:column;gap:16px;text-align:center}.nav-links{display:none}.hero{padding:48px 24px 0}.main{padding:40px 24px 60px}.amc-banner{padding:32px 24px}}
-@media(max-width:600px){.grid{grid-template-columns:1fr}.vstrip-inner{grid-template-columns:1fr}.hero h1{font-size:32px}.nav{padding:0 20px}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+/* RESPONSIVE */
+@media(max-width:960px){
+  .hero-inner,.featured,.amc-banner{grid-template-columns:1fr}
+  .hero-art{display:none}
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .vstrip-inner{grid-template-columns:repeat(2,1fr)}
+  .footer-inner{flex-direction:column;gap:20px;text-align:center}
+  .nav-links{display:none}
+  .hero,.main{padding-left:24px;padding-right:24px}
+  .amc-banner{padding:32px 24px}
+  .newsletter{padding:36px 24px}
+}
+@media(max-width:600px){
+  .grid{grid-template-columns:1fr}
+  .vstrip-inner{grid-template-columns:1fr}
+  .hero h1{font-size:34px}
+  .nav{padding:0 20px}
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .card{animation:fadeUp .5s ease both}
-.card:nth-child(1){animation-delay:.05s}.card:nth-child(2){animation-delay:.1s}.card:nth-child(3){animation-delay:.15s}
-.card:nth-child(4){animation-delay:.2s}.card:nth-child(5){animation-delay:.25s}.card:nth-child(6){animation-delay:.3s}
+.card:nth-child(1){animation-delay:.05s}.card:nth-child(2){animation-delay:.1s}
+.card:nth-child(3){animation-delay:.15s}.card:nth-child(4){animation-delay:.2s}
+.card:nth-child(5){animation-delay:.25s}.card:nth-child(6){animation-delay:.3s}
 </style>
 </head>
 <body>
 
+<!-- NAV with real logo -->
 <header class="nav">
   <div class="nav-logo">
-    <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
-      <polygon points="18,2 33,10.5 33,25.5 18,34 3,25.5 3,10.5" fill="none" stroke="#2D8A3E" stroke-width="1.8"/>
-      <polygon points="18,7 29,13.5 29,22.5 18,29 7,22.5 7,13.5" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
-      <circle cx="18" cy="18" r="4.5" fill="#2D8A3E"/>
-      <circle cx="18" cy="7" r="1.8" fill="rgba(255,255,255,0.55)"/>
-      <circle cx="29" cy="13.5" r="1.8" fill="rgba(255,255,255,0.55)"/>
-      <circle cx="29" cy="22.5" r="1.8" fill="rgba(255,255,255,0.55)"/>
-      <circle cx="18" cy="29" r="1.8" fill="rgba(255,255,255,0.55)"/>
-      <circle cx="7" cy="22.5" r="1.8" fill="rgba(255,255,255,0.55)"/>
-      <circle cx="7" cy="13.5" r="1.8" fill="rgba(255,255,255,0.55)"/>
-      <line x1="18" y1="7" x2="18" y2="13.5" stroke="rgba(255,255,255,0.35)" stroke-width="0.9"/>
-      <line x1="29" y1="13.5" x2="23" y2="16" stroke="rgba(255,255,255,0.35)" stroke-width="0.9"/>
-      <line x1="29" y1="22.5" x2="23" y2="20" stroke="rgba(255,255,255,0.35)" stroke-width="0.9"/>
-      <line x1="18" y1="29" x2="18" y2="22.5" stroke="rgba(255,255,255,0.35)" stroke-width="0.9"/>
-      <line x1="7" y1="22.5" x2="13" y2="20" stroke="rgba(255,255,255,0.35)" stroke-width="0.9"/>
-      <line x1="7" y1="13.5" x2="13" y2="16" stroke="rgba(255,255,255,0.35)" stroke-width="0.9"/>
-    </svg>
-    <div>
+    <img src="logo-icon.svg" alt="InfraMitra logo">
+    <div class="nav-wordmark">
       <span class="brand">InfraMitra</span>
       <span class="domain">blog.inframitra.com</span>
     </div>
@@ -165,6 +237,7 @@ footer{background:var(--blue);padding:40px}
   <a href="#newsletter" class="nav-cta">Subscribe free</a>
 </header>
 
+<!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
     <div>
@@ -172,60 +245,79 @@ footer{background:var(--blue);padding:40px}
       <h1>Smarter IT<br>infrastructure for<br><em>every Indian startup</em></h1>
       <p class="hero-sub">Refurbished enterprise hardware. AMC support long after OEM abandons you. Certified e-waste disposal. All from one platform built for India's startup and SMB ecosystem.</p>
       <div class="hero-pills">
-        <span class="pill pill-g">Save 60–70% vs new</span>
+        <span class="pill pill-t">Save 60–70% vs new</span>
         <span class="pill pill-b">Deploy in 48 hours</span>
-        <span class="pill pill-g">AMC after OEM ends</span>
+        <span class="pill pill-t">AMC after OEM ends</span>
         <span class="pill">CPCB certified ITAD</span>
       </div>
       <div class="hero-btns">
-        <a href="#blog" class="btn-p">Read the blog</a>
-        <a href="https://www.inframitra.com" class="btn-g">Get free assessment &#8599;</a>
+        <a href="#blog" class="btn-primary">Read the blog</a>
+        <a href="https://www.inframitra.com" class="btn-ghost">Get free assessment &#8599;</a>
       </div>
     </div>
     <div class="hero-art">
-      <svg viewBox="0 0 440 420" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="60" y="40" width="320" height="340" rx="6" fill="#0a1a2e" stroke="rgba(45,138,62,0.3)" stroke-width="1"/>
-        <rect x="72" y="66" width="296" height="38" rx="3" fill="#0e2035" stroke="rgba(45,138,62,0.25)" stroke-width="0.8"/>
-        <rect x="82" y="76" width="10" height="18" rx="2" fill="#2D8A3E" opacity="0.9"/>
-        <rect x="98" y="76" width="10" height="18" rx="2" fill="#2D8A3E" opacity="0.7"/>
-        <rect x="116" y="80" width="120" height="10" rx="1" fill="rgba(255,255,255,0.1)"/>
-        <circle cx="342" cy="85" r="5" fill="#2D8A3E"/>
-        <circle cx="356" cy="85" r="5" fill="rgba(255,255,255,0.15)"/>
-        <text x="82" y="114" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,0.4)">DELL PowerEdge R750 — Refurbished · AMC Active</text>
-        <rect x="72" y="112" width="296" height="38" rx="3" fill="#0e2035" stroke="rgba(45,138,62,0.2)" stroke-width="0.8"/>
-        <rect x="82" y="122" width="10" height="18" rx="2" fill="#2D8A3E" opacity="0.8"/>
-        <rect x="98" y="122" width="10" height="18" rx="2" fill="#2D8A3E" opacity="0.6"/>
-        <rect x="116" y="126" width="90" height="10" rx="1" fill="rgba(255,255,255,0.08)"/>
-        <circle cx="342" cy="131" r="5" fill="#2D8A3E" opacity="0.8"/>
-        <circle cx="356" cy="131" r="5" fill="rgba(255,255,255,0.12)"/>
-        <text x="82" y="160" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,0.35)">HP ProLiant DL380 Gen10 — OEM ended 2021 · Still active</text>
-        <rect x="72" y="158" width="296" height="38" rx="3" fill="#0e2035" stroke="rgba(45,138,62,0.15)" stroke-width="0.8"/>
-        <rect x="82" y="168" width="10" height="18" rx="2" fill="#2D8A3E" opacity="0.6"/>
-        <rect x="98" y="168" width="10" height="18" rx="2" fill="rgba(45,138,62,0.4)"/>
-        <rect x="116" y="172" width="110" height="10" rx="1" fill="rgba(255,255,255,0.06)"/>
-        <text x="82" y="206" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,0.3)">Cisco UCS C240 M5 — Refurbished · Gold AMC</text>
-        <text x="72" y="232" font-family="DM Sans,sans-serif" font-size="9" font-weight="500" fill="rgba(255,255,255,0.3)" letter-spacing="1.2">LIFECYCLE</text>
-        <rect x="72" y="240" width="60" height="14" rx="3" fill="rgba(45,138,62,0.35)"/>
-        <text x="102" y="251" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8" font-weight="600" fill="#6dd48a">Procured</text>
-        <rect x="146" y="240" width="56" height="14" rx="3" fill="rgba(45,138,62,0.55)"/>
-        <text x="174" y="251" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8" font-weight="600" fill="#6dd48a">AMC Live</text>
-        <rect x="216" y="240" width="52" height="14" rx="3" fill="rgba(255,255,255,0.07)"/>
-        <text x="242" y="251" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8" fill="rgba(255,255,255,0.4)">Buyback</text>
-        <rect x="282" y="240" width="44" height="14" rx="3" fill="rgba(255,255,255,0.04)"/>
-        <text x="304" y="251" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8" fill="rgba(255,255,255,0.25)">ITAD</text>
-        <rect x="72" y="276" width="136" height="70" rx="6" fill="rgba(45,138,62,0.12)" stroke="rgba(45,138,62,0.3)" stroke-width="0.8"/>
-        <text x="140" y="299" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="rgba(255,255,255,0.45)">Q3 savings</text>
-        <text x="140" y="326" text-anchor="middle" font-family="DM Serif Display,serif" font-size="26" fill="#6dd48a">&#8377;1.2 Cr</text>
-        <text x="140" y="340" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,0.3)">vs buying new</text>
-        <rect x="224" y="276" width="144" height="70" rx="6" fill="rgba(46,80,144,0.2)" stroke="rgba(46,80,144,0.4)" stroke-width="0.8"/>
-        <text x="296" y="299" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="rgba(255,255,255,0.45)">SLA uptime</text>
-        <text x="296" y="326" text-anchor="middle" font-family="DM Serif Display,serif" font-size="26" fill="#89b8f7">99.9%</text>
-        <text x="296" y="340" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,0.3)">even post-OEM</text>
+      <svg viewBox="0 0 460 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Server rack cabinet -->
+        <rect x="70" y="40" width="320" height="350" rx="8" fill="#0a1525" stroke="rgba(56,189,248,0.2)" stroke-width="1"/>
+        <rect x="70" y="40" width="320" height="18" rx="8" fill="#111d2e"/>
+        <rect x="70" y="50" width="320" height="8" fill="#111d2e"/>
+        <!-- Rack label strip -->
+        <rect x="78" y="46" width="60" height="8" rx="2" fill="rgba(56,189,248,0.15)"/>
+        <text x="108" y="53" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7" fill="rgba(56,189,248,0.7)">INFRAMITRA</text>
+        <!-- Server rows -->
+        <rect x="82" y="68" width="296" height="36" rx="3" fill="#0d1e30" stroke="rgba(56,189,248,0.2)" stroke-width="0.8"/>
+        <rect x="92" y="78" width="10" height="16" rx="2" fill="#34D399" opacity="0.9"/>
+        <rect x="108" y="78" width="10" height="16" rx="2" fill="#34D399" opacity="0.7"/>
+        <rect x="126" y="82" width="100" height="8" rx="1" fill="rgba(255,255,255,0.08)"/>
+        <circle cx="348" cy="86" r="5" fill="#34D399"/>
+        <circle cx="362" cy="86" r="5" fill="rgba(255,255,255,0.1)"/>
+        <text x="92" y="116" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,0.35)">DELL PowerEdge R750 — Refurbished · AMC Active</text>
+
+        <rect x="82" y="114" width="296" height="36" rx="3" fill="#0d1e30" stroke="rgba(52,211,153,0.2)" stroke-width="0.8"/>
+        <rect x="92" y="124" width="10" height="16" rx="2" fill="#38BDF8" opacity="0.8"/>
+        <rect x="108" y="124" width="10" height="16" rx="2" fill="#38BDF8" opacity="0.6"/>
+        <rect x="126" y="128" width="80" height="8" rx="1" fill="rgba(255,255,255,0.07)"/>
+        <circle cx="348" cy="132" r="5" fill="#38BDF8" opacity="0.9"/>
+        <circle cx="362" cy="132" r="5" fill="rgba(255,255,255,0.08)"/>
+        <text x="92" y="162" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,0.3)">HP ProLiant DL380 Gen10 — OEM ended 2021 · Still running</text>
+
+        <rect x="82" y="160" width="296" height="36" rx="3" fill="#0d1e30" stroke="rgba(129,140,248,0.15)" stroke-width="0.8"/>
+        <rect x="92" y="170" width="10" height="16" rx="2" fill="#818CF8" opacity="0.8"/>
+        <rect x="108" y="170" width="10" height="16" rx="2" fill="#818CF8" opacity="0.5"/>
+        <rect x="126" y="174" width="110" height="8" rx="1" fill="rgba(255,255,255,0.06)"/>
+        <circle cx="348" cy="178" r="5" fill="#818CF8" opacity="0.8"/>
+        <text x="92" y="208" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)">Cisco UCS C240 M5 — Refurbished · Gold AMC</text>
+
+        <!-- Lifecycle bar -->
+        <text x="82" y="230" font-family="DM Sans,sans-serif" font-size="9" font-weight="500" fill="rgba(255,255,255,0.25)" letter-spacing="1.5">LIFECYCLE STATUS</text>
+        <rect x="82" y="238" width="62" height="14" rx="3" fill="rgba(52,211,153,0.3)"/>
+        <text x="113" y="249" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8" font-weight="600" fill="#34D399">Procured</text>
+        <rect x="150" y="238" width="58" height="14" rx="3" fill="rgba(52,211,153,0.5)"/>
+        <text x="179" y="249" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8" font-weight="600" fill="#34D399">AMC Live</text>
+        <rect x="214" y="238" width="54" height="14" rx="3" fill="rgba(255,255,255,0.06)"/>
+        <text x="241" y="249" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8" fill="rgba(255,255,255,0.35)">Buyback</text>
+        <rect x="274" y="238" width="46" height="14" rx="3" fill="rgba(255,255,255,0.04)"/>
+        <text x="297" y="249" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8" fill="rgba(255,255,255,0.22)">ITAD</text>
+
+        <!-- Metric cards -->
+        <rect x="82" y="272" width="140" height="72" rx="8" fill="rgba(52,211,153,0.08)" stroke="rgba(52,211,153,0.25)" stroke-width="0.8"/>
+        <text x="152" y="296" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="rgba(255,255,255,0.4)">Q3 infra savings</text>
+        <text x="152" y="324" text-anchor="middle" font-family="DM Serif Display,serif" font-size="26" fill="#34D399">&#8377;1.2 Cr</text>
+        <text x="152" y="338" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)">vs buying new hardware</text>
+
+        <rect x="238" y="272" width="140" height="72" rx="8" fill="rgba(56,189,248,0.08)" stroke="rgba(56,189,248,0.25)" stroke-width="0.8"/>
+        <text x="308" y="296" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="rgba(255,255,255,0.4)">SLA uptime</text>
+        <text x="308" y="324" text-anchor="middle" font-family="DM Serif Display,serif" font-size="26" fill="#38BDF8">99.9%</text>
+        <text x="308" y="338" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)">even post-OEM</text>
+
+        <!-- Bottom deploy note -->
+        <text x="230" y="378" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,0.2)">Deployed within 48 hrs of PO · Zero unplanned downtime · CPCB certified</text>
       </svg>
     </div>
   </div>
 </section>
 
+<!-- VALUE STRIP -->
 <div class="vstrip">
   <div class="vstrip-inner">
     <div class="vchip"><div class="vnum">60–70%</div><div class="vlabel">Hardware cost savings</div><div class="vsub">vs buying new enterprise gear</div></div>
@@ -235,89 +327,104 @@ footer{background:var(--blue);padding:40px}
   </div>
 </div>
 
+<!-- MAIN -->
 <main class="main">
 
+  <!-- FEATURED POST -->
   <div class="slabel">Today's featured post</div>
   <div class="featured" id="blog">
     <div class="fvis">
       <svg viewBox="0 0 500 340" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
-        <rect width="500" height="340" fill="#0a1820"/>
-        <rect x="40" y="120" width="70" height="140" rx="3" fill="#112030" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
-        <rect x="48" y="132" width="54" height="10" rx="1" fill="#1a3048"/>
-        <rect x="48" y="146" width="54" height="10" rx="1" fill="#1a3048"/>
-        <rect x="48" y="160" width="54" height="10" rx="1" fill="#1a3048"/>
-        <rect x="48" y="174" width="54" height="10" rx="1" fill="#1a3048"/>
-        <circle cx="91" cy="137" r="3" fill="rgba(255,80,80,0.5)"/>
-        <circle cx="91" cy="151" r="3" fill="rgba(255,80,80,0.4)"/>
-        <circle cx="91" cy="165" r="3" fill="rgba(255,140,0,0.5)"/>
-        <circle cx="91" cy="179" r="3" fill="rgba(255,80,80,0.3)"/>
-        <text x="75" y="210" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)">HP ProLiant</text>
-        <text x="75" y="222" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8" fill="rgba(255,80,80,0.7)">OEM ended 2021</text>
-        <rect x="48" y="234" width="54" height="16" rx="3" fill="rgba(200,40,40,0.2)" stroke="rgba(200,40,40,0.4)" stroke-width="0.8"/>
-        <text x="75" y="246" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8" font-weight="600" fill="rgba(255,100,100,0.9)">No support</text>
-        <path d="M 130 185 Q 200 165 240 185" stroke="rgba(45,138,62,0.5)" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>
-        <polygon points="240,185 232,179 236,191" fill="rgba(45,138,62,0.6)"/>
-        <text x="183" y="163" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" font-weight="500" fill="#6dd48a">InfraMitra steps in</text>
-        <rect x="260" y="100" width="80" height="160" rx="3" fill="#0d2518" stroke="rgba(45,138,62,0.35)" stroke-width="1"/>
-        <rect x="270" y="113" width="60" height="12" rx="1" fill="#163520"/>
-        <rect x="270" y="129" width="60" height="12" rx="1" fill="#163520"/>
-        <rect x="270" y="145" width="60" height="12" rx="1" fill="#163520"/>
-        <rect x="270" y="161" width="60" height="12" rx="1" fill="#163520"/>
-        <rect x="270" y="177" width="60" height="12" rx="1" fill="#163520"/>
-        <circle cx="322" cy="119" r="4" fill="#2D8A3E"/>
-        <circle cx="322" cy="135" r="4" fill="#2D8A3E" opacity="0.8"/>
-        <circle cx="322" cy="151" r="4" fill="#2D8A3E"/>
-        <circle cx="322" cy="167" r="4" fill="#2D8A3E" opacity="0.9"/>
-        <circle cx="322" cy="183" r="4" fill="#2D8A3E" opacity="0.7"/>
-        <text x="300" y="222" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,0.3)">HP ProLiant</text>
-        <text x="300" y="234" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8" fill="#6dd48a">InfraMitra AMC</text>
-        <rect x="268" y="244" width="64" height="16" rx="3" fill="rgba(45,138,62,0.3)" stroke="rgba(45,138,62,0.5)" stroke-width="0.8"/>
-        <text x="300" y="256" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8" font-weight="600" fill="#6dd48a">Active 24/7</text>
-        <rect x="370" y="130" width="110" height="68" rx="6" fill="rgba(45,138,62,0.12)" stroke="rgba(45,138,62,0.3)" stroke-width="0.8"/>
-        <text x="425" y="153" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="rgba(255,255,255,0.4)">Avoided cost</text>
-        <text x="425" y="174" text-anchor="middle" font-family="DM Serif Display,serif" font-size="22" fill="#6dd48a">&#8377;28L</text>
-        <text x="425" y="189" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,0.3)">no replacement needed</text>
-        <text x="24" y="34" font-family="DM Serif Display,serif" font-size="13" fill="rgba(255,255,255,0.4)">Use case · Mumbai logistics · HP ProLiant DL360 Gen9</text>
+        <rect width="500" height="340" fill="#0a1525"/>
+        <!-- Background glow -->
+        <radialGradient id="gl1" cx="25%" cy="50%" r="50%"><stop offset="0%" stop-color="#34D399" stop-opacity="0.08"/><stop offset="100%" stop-color="#34D399" stop-opacity="0"/></radialGradient>
+        <radialGradient id="gl2" cx="80%" cy="50%" r="40%"><stop offset="0%" stop-color="#38BDF8" stop-opacity="0.07"/><stop offset="100%" stop-color="#38BDF8" stop-opacity="0"/></radialGradient>
+        <rect width="500" height="340" fill="url(#gl1)"/>
+        <rect width="500" height="340" fill="url(#gl2)"/>
+        <!-- Old server (left) -->
+        <rect x="40" y="110" width="80" height="140" rx="4" fill="#111d2e" stroke="rgba(255,255,255,0.07)" stroke-width="0.8"/>
+        <rect x="50" y="122" width="60" height="12" rx="2" fill="#1a2d44"/>
+        <rect x="50" y="138" width="60" height="12" rx="2" fill="#1a2d44"/>
+        <rect x="50" y="154" width="60" height="12" rx="2" fill="#1a2d44"/>
+        <rect x="50" y="170" width="60" height="12" rx="2" fill="#1a2d44"/>
+        <circle cx="100" cy="128" r="4" fill="rgba(255,80,80,0.6)"/>
+        <circle cx="100" cy="144" r="4" fill="rgba(255,80,80,0.5)"/>
+        <circle cx="100" cy="160" r="4" fill="rgba(255,160,0,0.5)"/>
+        <circle cx="100" cy="176" r="4" fill="rgba(255,80,80,0.4)"/>
+        <text x="80" y="208" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,0.25)">HP ProLiant</text>
+        <text x="80" y="220" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8" fill="rgba(255,90,90,0.8)">OEM ended 2021</text>
+        <rect x="50" y="232" width="60" height="16" rx="3" fill="rgba(200,40,40,0.18)" stroke="rgba(200,40,40,0.35)" stroke-width="0.8"/>
+        <text x="80" y="244" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8" font-weight="600" fill="rgba(255,100,100,0.9)">No support</text>
+        <!-- Arrow -->
+        <path d="M 142 180 Q 210 158 248 180" stroke="rgba(52,211,153,0.5)" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>
+        <polygon points="248,180 240,174 244,186" fill="rgba(52,211,153,0.6)"/>
+        <text x="192" y="155" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" font-weight="500" fill="#34D399">InfraMitra steps in</text>
+        <!-- New server (right, AMC active) -->
+        <rect x="268" y="90" width="88" height="160" rx="4" fill="#0d2018" stroke="rgba(52,211,153,0.3)" stroke-width="1"/>
+        <rect x="278" y="104" width="68" height="14" rx="2" fill="#163520"/>
+        <rect x="278" y="122" width="68" height="14" rx="2" fill="#163520"/>
+        <rect x="278" y="140" width="68" height="14" rx="2" fill="#163520"/>
+        <rect x="278" y="158" width="68" height="14" rx="2" fill="#163520"/>
+        <rect x="278" y="176" width="68" height="14" rx="2" fill="#163520"/>
+        <circle cx="338" cy="111" r="4.5" fill="#34D399"/>
+        <circle cx="338" cy="129" r="4.5" fill="#34D399" opacity="0.8"/>
+        <circle cx="338" cy="147" r="4.5" fill="#34D399"/>
+        <circle cx="338" cy="165" r="4.5" fill="#34D399" opacity="0.9"/>
+        <circle cx="338" cy="183" r="4.5" fill="#34D399" opacity="0.7"/>
+        <text x="312" y="228" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,0.3)">HP ProLiant</text>
+        <text x="312" y="240" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8" fill="#34D399">InfraMitra AMC</text>
+        <rect x="278" y="248" width="70" height="16" rx="3" fill="rgba(52,211,153,0.25)" stroke="rgba(52,211,153,0.45)" stroke-width="0.8"/>
+        <text x="313" y="260" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8" font-weight="600" fill="#34D399">Active 24/7</text>
+        <!-- Savings card -->
+        <rect x="386" y="120" width="100" height="72" rx="8" fill="rgba(52,211,153,0.1)" stroke="rgba(52,211,153,0.28)" stroke-width="0.8"/>
+        <text x="436" y="145" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="rgba(255,255,255,0.4)">Avoided cost</text>
+        <text x="436" y="168" text-anchor="middle" font-family="DM Serif Display,serif" font-size="22" fill="#34D399">&#8377;28L</text>
+        <text x="436" y="183" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8" fill="rgba(255,255,255,0.25)">no replacement</text>
+        <!-- Caption -->
+        <text x="24" y="32" font-family="DM Serif Display,serif" font-size="12" fill="rgba(255,255,255,0.35)">Use case · Mumbai logistics · HP ProLiant DL360 Gen9 · 7 years old</text>
       </svg>
     </div>
     <div class="fbody">
-      <span class="badge b-amc">🛡️ AMC &amp; Support</span>
+      <span class="badge b-amc">&#128737; AMC &amp; Support</span>
       <h2>When OEM support ends, InfraMitra begins — keeping your 7-year-old HP ProLiant alive</h2>
-      <p>A Mumbai logistics company avoided ₹28 Lakhs in hardware replacement cost by signing InfraMitra's end-of-life AMC. HP discontinued support in 2021. InfraMitra's Gold-tier AMC has kept the fleet running since — same 99.9% uptime SLA, zero OEM dependency.</p>
+      <p>A Mumbai logistics company avoided &#8377;28 Lakhs in hardware replacement cost by signing InfraMitra's end-of-life AMC. HP discontinued support in 2021. InfraMitra's Gold-tier AMC has kept the fleet running since — same 99.9% uptime SLA, zero OEM dependency.</p>
       <div class="fmeta">
-        <span>📅 Today</span>
-        <span>⏱ 7 min read</span>
-        <span>👁 2,340 views</span>
+        <span>&#128197; Today</span>
+        <span>&#9202; 7 min read</span>
+        <span>&#128065; 2,340 views</span>
       </div>
-      <a href="#" class="rbtn">Read full case study →</a>
+      <a href="#" class="rbtn">Read full case study &#8594;</a>
     </div>
   </div>
 
+  <!-- FILTERS -->
   <div class="slabel" id="cases">All posts</div>
   <div class="filters">
     <span class="fc on" onclick="doFilter(this,'all')">All topics</span>
-    <span class="fc" onclick="doFilter(this,'amc')">🛡️ AMC &amp; Support</span>
-    <span class="fc" onclick="doFilter(this,'cost')">💰 Cost savings</span>
-    <span class="fc" onclick="doFilter(this,'speed')">⚡ Speed</span>
-    <span class="fc" onclick="doFilter(this,'sustain')">🌱 Sustainability</span>
-    <span class="fc" onclick="doFilter(this,'case')">📊 Case studies</span>
+    <span class="fc" onclick="doFilter(this,'amc')">&#128737; AMC &amp; Support</span>
+    <span class="fc" onclick="doFilter(this,'cost')">&#128176; Cost savings</span>
+    <span class="fc" onclick="doFilter(this,'speed')">&#9889; Speed</span>
+    <span class="fc" onclick="doFilter(this,'sustain')">&#127807; Sustainability</span>
+    <span class="fc" onclick="doFilter(this,'case')">&#128202; Case studies</span>
   </div>
   <div class="grid" id="grid"></div>
 
+  <!-- AMC BANNER -->
   <div class="amc-banner" id="amc">
     <div>
       <h2>Peace of mind,<br><em>long after the OEM leaves</em></h2>
       <p>InfraMitra's AMC covers hardware that manufacturers no longer support. Guaranteed response times, 24/7 monitoring, and on-site visits — for servers that still have years of useful life left.</p>
-      <a href="https://www.inframitra.com" class="amc-btn">Get AMC quote →</a>
+      <a href="https://www.inframitra.com" class="amc-btn">Get AMC quote &#8594;</a>
     </div>
     <div class="tiers">
-      <div class="tier"><div class="tname t-bronze">Bronze</div><div class="tresp">24hr response · 9–6</div><div class="tprice">from ₹1,500/device/mo</div></div>
-      <div class="tier"><div class="tname t-silver">Silver</div><div class="tresp">8hr response · 9–6</div><div class="tprice">from ₹2,500/device/mo</div></div>
-      <div class="tier"><div class="tname t-gold">Gold</div><div class="tresp">4hr response · 24/7</div><div class="tprice">from ₹4,000/device/mo</div></div>
-      <div class="tier"><div class="tname t-plat">Platinum</div><div class="tresp">2hr response · 24/7</div><div class="tprice">from ₹6,500/device/mo</div></div>
+      <div class="tier"><div class="tname t-bronze">Bronze</div><div class="tresp">24hr response · 9–6</div><div class="tprice">from &#8377;1,500/device/mo</div></div>
+      <div class="tier"><div class="tname t-silver">Silver</div><div class="tresp">8hr response · 9–6</div><div class="tprice">from &#8377;2,500/device/mo</div></div>
+      <div class="tier"><div class="tname t-gold">Gold</div><div class="tresp">4hr response · 24/7</div><div class="tprice">from &#8377;4,000/device/mo</div></div>
+      <div class="tier"><div class="tname t-plat">Platinum</div><div class="tresp">2hr response · 24/7 + on-site</div><div class="tprice">from &#8377;6,500/device/mo</div></div>
     </div>
   </div>
 
+  <!-- NEWSLETTER -->
   <div class="newsletter" id="newsletter">
     <h2>Daily insights for smarter IT decisions</h2>
     <p>Join 4,200+ Indian startup and SMB founders who get our morning briefing on IT infrastructure, cost savings, and AMC support tips.</p>
@@ -329,14 +436,12 @@ footer{background:var(--blue);padding:40px}
 
 </main>
 
+<!-- FOOTER with real logo -->
 <footer>
   <div class="footer-inner">
     <div class="flogo">
-      <svg width="28" height="28" viewBox="0 0 36 36" fill="none">
-        <polygon points="18,2 33,10.5 33,25.5 18,34 3,25.5 3,10.5" fill="none" stroke="#2D8A3E" stroke-width="2"/>
-        <circle cx="18" cy="18" r="4.5" fill="#2D8A3E"/>
-      </svg>
-      <div><div class="fbrand">InfraMitra Blog</div><div class="fsub">blog.inframitra.com</div></div>
+      <img src="logo-icon.svg" alt="InfraMitra">
+      <div><span class="fbrand">InfraMitra Blog</span><span class="fsub">blog.inframitra.com</span></div>
     </div>
     <div class="flinks">
       <a href="https://www.inframitra.com">Main website</a>
@@ -344,33 +449,85 @@ footer{background:var(--blue);padding:40px}
       <a href="#">Terms</a>
       <a href="mailto:blog@inframitra.com">Contact</a>
     </div>
-    <div class="fcopy">© 2025 InfraMitra. All rights reserved.</div>
+    <div class="fcopy">&#169; 2025 InfraMitra. All rights reserved.</div>
   </div>
 </footer>
 
 <script>
 const P=[
-  {cat:'cost',badge:'b-cost',bl:'💰 Cost savings',title:'Dell R750 vs new: Pune SaaS startup saves ₹52 Lakhs',excerpt:'Full 3-year TCO comparison showing why refurbished wins for budget-conscious startups.',date:'Yesterday',read:'6 min',bg:'#eaf3de',acc:'#2e5c0d',vis:'cost'},
-  {cat:'speed',badge:'b-speed',bl:'⚡ Speed',title:'From PO to production: the 48-hour deployment playbook',excerpt:'Hyderabad fintech went live in 2 days, not 2 months. Here is the exact process InfraMitra follows.',date:'2 days ago',read:'5 min',bg:'#e6f1fb',acc:'#143f7a',vis:'speed'},
-  {cat:'amc',badge:'b-amc',bl:'🛡️ AMC Support',title:'Cisco UCS 5 years old, still running: a Bengaluru edtech story',excerpt:'Cisco dropped support in 2020. InfraMitra Silver AMC kept the servers running — zero outages in 4 years.',date:'3 days ago',read:'7 min',bg:'#e1f5ee',acc:'#0a5c42',vis:'amc'},
-  {cat:'sustain',badge:'b-sustain',bl:'🌱 Sustainability',title:'E-waste + ESG certificates: win government tenders in 2025',excerpt:'CPCB-certified disposal, data destruction records, and carbon offset documentation from one vendor.',date:'4 days ago',read:'5 min',bg:'#fef3e2',acc:'#7a4a08',vis:'sustain'},
-  {cat:'case',badge:'b-case',bl:'📊 Case study',title:'12-person Delhi startup scales to 50k users on refurbished HP',excerpt:'Refurbished HP ProLiant servers + Gold AMC = 99.96% uptime over 14 months. All the numbers inside.',date:'5 days ago',read:'9 min',bg:'#f0eafb',acc:'#4a2080',vis:'cost'},
-  {cat:'amc',badge:'b-amc',bl:'🛡️ AMC Support',title:'Bronze to Platinum — which AMC tier is right for your startup?',excerpt:'A plain-English breakdown of InfraMitra four SLA tiers, with a decision matrix for non-technical founders.',date:'6 days ago',read:'4 min',bg:'#e1f5ee',acc:'#0a5c42',vis:'amc'}
+  {cat:'cost',badge:'b-cost',bl:'&#128176; Cost savings',title:'Dell R750 vs new: Pune SaaS startup saves &#8377;52 Lakhs',excerpt:'Full 3-year TCO comparison showing why refurbished wins for budget-conscious startups.',date:'Yesterday',read:'6 min',bg:'#eaf3de',acc:'#2e5c0d',vis:'cost'},
+  {cat:'speed',badge:'b-speed',bl:'&#9889; Speed',title:'From PO to production: the 48-hour deployment playbook',excerpt:'Hyderabad fintech went live in 2 days, not 2 months. The exact process InfraMitra follows.',date:'2 days ago',read:'5 min',bg:'#e3f2fd',acc:'#0d47a1',vis:'speed'},
+  {cat:'amc',badge:'b-amc',bl:'&#128737; AMC Support',title:'Cisco UCS 5 years old, still running — a Bengaluru edtech story',excerpt:'Cisco dropped support in 2020. InfraMitra Silver AMC kept the servers running — zero outages in 4 years.',date:'3 days ago',read:'7 min',bg:'#e1f5ee',acc:'#0a5c42',vis:'amc'},
+  {cat:'sustain',badge:'b-sustain',bl:'&#127807; Sustainability',title:'E-waste + ESG certificates: win government tenders in 2025',excerpt:'CPCB-certified disposal, data destruction records, and carbon offset documentation — one vendor.',date:'4 days ago',read:'5 min',bg:'#fef3e2',acc:'#7a4a08',vis:'sustain'},
+  {cat:'case',badge:'b-case',bl:'&#128202; Case study',title:'12-person Delhi startup scales to 50k users on refurbished HP',excerpt:'Refurbished HP ProLiant servers + Gold AMC = 99.96% uptime over 14 months. All the numbers inside.',date:'5 days ago',read:'9 min',bg:'#f0eafb',acc:'#4a2080',vis:'cost'},
+  {cat:'amc',badge:'b-amc',bl:'&#128737; AMC Support',title:'Bronze to Platinum: which AMC tier is right for your startup?',excerpt:'A plain-English breakdown of four SLA tiers, with a decision matrix for non-technical founders.',date:'6 days ago',read:'4 min',bg:'#e1f5ee',acc:'#0a5c42',vis:'amc'}
 ];
 
 function svg(vis,bg,acc){
   const m={
-    cost:`<rect width="300" height="160" fill="${bg}"/><text x="24" y="28" font-family="DM Sans,sans-serif" font-size="11" font-weight="600" fill="${acc}">New server</text><rect x="24" y="36" width="110" height="22" rx="3" fill="${acc}" opacity="0.6"/><text x="79" y="52" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" font-weight="600" fill="white">&#8377;3,50,000</text><text x="160" y="28" font-family="DM Sans,sans-serif" font-size="11" font-weight="600" fill="${acc}">Refurbished</text><rect x="160" y="36" width="72" height="22" rx="3" fill="${acc}"/><text x="196" y="52" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" font-weight="600" fill="white">&#8377;1,40,000</text><text x="150" y="105" text-anchor="middle" font-family="DM Serif Display,serif" font-size="28" fill="${acc}">Save 60%</text><text x="150" y="130" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="${acc}" opacity="0.7">Same specs · Same SLA · Faster delivery</text>`,
-    speed:`<rect width="300" height="160" fill="${bg}"/><text x="24" y="30" font-family="DM Sans,sans-serif" font-size="11" fill="${acc}" opacity="0.7">Ordering new equipment</text><rect x="24" y="38" width="230" height="14" rx="2" fill="${acc}" opacity="0.2"/><text x="262" y="50" font-family="DM Sans,sans-serif" font-size="10" fill="${acc}" opacity="0.6">60 days</text><text x="24" y="82" font-family="DM Sans,sans-serif" font-size="11" fill="${acc}" opacity="0.9">InfraMitra refurbished</text><rect x="24" y="90" width="18" height="14" rx="2" fill="${acc}"/><text x="50" y="102" font-family="DM Sans,sans-serif" font-size="10" font-weight="600" fill="${acc}">48 hours</text><text x="150" y="140" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="${acc}" opacity="0.7">Ready to rack. Tested. Warranted.</text>`,
-    amc:`<rect width="300" height="160" fill="${bg}"/><rect x="24" y="22" width="110" height="50" rx="4" fill="${acc}" opacity="0.15" stroke="${acc}" stroke-width="0.8"/><text x="79" y="44" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="${acc}">OEM ended</text><text x="79" y="62" text-anchor="middle" font-family="DM Serif Display,serif" font-size="18" fill="${acc}">2020</text><text x="155" y="47" font-family="DM Sans,sans-serif" font-size="18" fill="${acc}" opacity="0.5">&#8594;</text><rect x="170" y="22" width="110" height="50" rx="4" fill="${acc}"/><text x="225" y="44" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="white">InfraMitra AMC</text><text x="225" y="62" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" font-weight="600" fill="white">Active 24/7</text><text x="150" y="110" text-anchor="middle" font-family="DM Serif Display,serif" font-size="16" fill="${acc}">Zero unplanned downtime</text><text x="150" y="135" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="${acc}" opacity="0.7">Peace of mind · SLA-backed</text>`,
-    sustain:`<rect width="300" height="160" fill="${bg}"/><circle cx="60" cy="70" r="36" fill="${acc}" opacity="0.12" stroke="${acc}" stroke-width="1"/><text x="60" y="64" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" font-weight="600" fill="${acc}">CPCB</text><text x="60" y="78" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="${acc}" opacity="0.8">Certified</text><circle cx="150" cy="70" r="36" fill="${acc}" opacity="0.28" stroke="${acc}" stroke-width="1"/><text x="150" y="64" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" font-weight="600" fill="${acc}">Data</text><text x="150" y="78" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="${acc}" opacity="0.8">Destroyed</text><circle cx="240" cy="70" r="36" fill="${acc}" opacity="0.48" stroke="${acc}" stroke-width="1"/><text x="240" y="64" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" font-weight="600" fill="${acc}">ESG</text><text x="240" y="78" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="${acc}" opacity="0.8">Certified</text><text x="150" y="132" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="${acc}">Win govt tenders · Meet CSR goals</text>`
+    cost:`<rect width="300" height="160" fill="${bg}"/>
+      <text x="24" y="28" font-family="DM Sans,sans-serif" font-size="11" font-weight="600" fill="${acc}">New server</text>
+      <rect x="24" y="36" width="110" height="22" rx="3" fill="${acc}" opacity="0.6"/>
+      <text x="79" y="52" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" font-weight="600" fill="white">&#8377;3,50,000</text>
+      <text x="160" y="28" font-family="DM Sans,sans-serif" font-size="11" font-weight="600" fill="${acc}">Refurbished</text>
+      <rect x="160" y="36" width="72" height="22" rx="3" fill="${acc}"/>
+      <text x="196" y="52" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" font-weight="600" fill="white">&#8377;1,40,000</text>
+      <text x="150" y="105" text-anchor="middle" font-family="DM Serif Display,serif" font-size="28" fill="${acc}">Save 60%</text>
+      <text x="150" y="130" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="${acc}" opacity="0.7">Same specs · Same SLA · Faster delivery</text>`,
+    speed:`<rect width="300" height="160" fill="${bg}"/>
+      <text x="24" y="30" font-family="DM Sans,sans-serif" font-size="11" fill="${acc}" opacity="0.7">Ordering new equipment</text>
+      <rect x="24" y="38" width="230" height="14" rx="2" fill="${acc}" opacity="0.2"/>
+      <text x="262" y="50" font-family="DM Sans,sans-serif" font-size="10" fill="${acc}" opacity="0.6">60 days</text>
+      <text x="24" y="82" font-family="DM Sans,sans-serif" font-size="11" fill="${acc}">InfraMitra refurbished</text>
+      <rect x="24" y="90" width="18" height="14" rx="2" fill="${acc}"/>
+      <text x="50" y="102" font-family="DM Sans,sans-serif" font-size="10" font-weight="600" fill="${acc}">48 hours &#9889;</text>
+      <text x="150" y="140" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="${acc}" opacity="0.7">Ready to rack. Tested. Warranted.</text>`,
+    amc:`<rect width="300" height="160" fill="${bg}"/>
+      <rect x="24" y="22" width="110" height="50" rx="4" fill="${acc}" opacity="0.12" stroke="${acc}" stroke-width="0.8"/>
+      <text x="79" y="44" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="${acc}">OEM ended</text>
+      <text x="79" y="62" text-anchor="middle" font-family="DM Serif Display,serif" font-size="18" fill="${acc}">2020</text>
+      <text x="155" y="48" font-family="DM Sans,sans-serif" font-size="18" fill="${acc}" opacity="0.5">&#8594;</text>
+      <rect x="170" y="22" width="110" height="50" rx="4" fill="${acc}"/>
+      <text x="225" y="44" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="white">InfraMitra AMC</text>
+      <text x="225" y="62" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" font-weight="600" fill="white">Active 24/7</text>
+      <text x="150" y="108" text-anchor="middle" font-family="DM Serif Display,serif" font-size="16" fill="${acc}">Zero unplanned downtime</text>
+      <text x="150" y="132" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="${acc}" opacity="0.7">Peace of mind · SLA-backed</text>`,
+    sustain:`<rect width="300" height="160" fill="${bg}"/>
+      <circle cx="60" cy="70" r="36" fill="${acc}" opacity="0.12" stroke="${acc}" stroke-width="1"/>
+      <text x="60" y="64" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" font-weight="600" fill="${acc}">CPCB</text>
+      <text x="60" y="78" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="${acc}" opacity="0.8">Certified</text>
+      <circle cx="150" cy="70" r="36" fill="${acc}" opacity="0.28" stroke="${acc}" stroke-width="1"/>
+      <text x="150" y="64" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" font-weight="600" fill="${acc}">Data</text>
+      <text x="150" y="78" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="${acc}" opacity="0.8">Destroyed</text>
+      <circle cx="240" cy="70" r="36" fill="${acc}" opacity="0.45" stroke="${acc}" stroke-width="1"/>
+      <text x="240" y="64" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" font-weight="600" fill="${acc}">ESG</text>
+      <text x="240" y="78" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="${acc}" opacity="0.8">Certified</text>
+      <text x="150" y="132" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="${acc}">Win govt tenders · Meet CSR goals</text>`
   };
   return m[vis]||m['cost'];
 }
 
 let cur='all';
-function doFilter(el,cat){document.querySelectorAll('.fc').forEach(f=>f.classList.remove('on'));el.classList.add('on');cur=cat;render();}
-function render(){const g=document.getElementById('grid');const l=cur==='all'?P:P.filter(p=>p.cat===cur);g.innerHTML=l.map(p=>`<article class="card"><div class="cvis"><svg viewBox="0 0 300 160" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">${svg(p.vis,p.bg,p.acc)}</svg></div><div class="cbody"><span class="badge ${p.badge}" style="font-size:10px;padding:3px 10px;margin-bottom:10px">${p.bl}</span><h3>${p.title}</h3><p>${p.excerpt}</p><div class="cfoot"><span class="cdate">${p.date} · ${p.read}</span><span class="carrow">Read &rarr;</span></div></div></article>`).join('');}
+function doFilter(el,cat){
+  document.querySelectorAll('.fc').forEach(f=>f.classList.remove('on'));
+  el.classList.add('on');cur=cat;render();
+}
+function render(){
+  const g=document.getElementById('grid');
+  const l=cur==='all'?P:P.filter(p=>p.cat===cur);
+  g.innerHTML=l.map(p=>`<article class="card">
+    <div class="cvis"><svg viewBox="0 0 300 160" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">${svg(p.vis,p.bg,p.acc)}</svg></div>
+    <div class="cbody">
+      <span class="badge ${p.badge}" style="font-size:10px;padding:3px 10px;margin-bottom:10px">${p.bl}</span>
+      <h3>${p.title}</h3>
+      <p>${p.excerpt}</p>
+      <div class="cfoot">
+        <span class="cdate">${p.date} &middot; ${p.read}</span>
+        <span class="carrow">Read &rarr;</span>
+      </div>
+    </div>
+  </article>`).join('');
+}
 render();
 </script>
 </body>
