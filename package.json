@@ -1,0 +1,44 @@
+{
+  "name": "inframitra-blog",
+  "version": "1.0.0",
+  "description": "InfraMitra Blog - Daily IT Infrastructure Insights for Indian Startups and SMBs",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "echo \"Build complete\"",
+    "deploy": "git push origin main"
+  },
+  "keywords": [
+    "inframitra",
+    "blog",
+    "refurbished-hardware",
+    "IT-infrastructure",
+    "AMC-support",
+    "India",
+    "startups",
+    "SMB"
+  ],
+  "author": "InfraMitra",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/inframitra/blog.git"
+  },
+  "homepage": "https://blog.inframitra.com",
+  "bugs": {
+    "url": "https://github.com/inframitra/blog/issues",
+    "email": "blog@inframitra.com"
+  },
+  "maintainers": [
+    {
+      "name": "InfraMitra Team",
+      "email": "blog@inframitra.com",
+      "url": "https://www.inframitra.com"
+    }
+  ],
+  "devDependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

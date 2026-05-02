@@ -1,0 +1,90 @@
+# Jekyll Configuration for InfraMitra Blog
+
+title: InfraMitra Blog
+description: India's Daily Guide to IT Infrastructure Excellence for Startups and SMBs
+url: https://blog.inframitra.com
+baseurl: ""
+
+# Site settings
+name: InfraMitra Blog
+email: blog@inframitra.com
+author: InfraMitra
+logo: /assets/images/logo.svg
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+theme: null
+
+# Plugins
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# SEO settings
+social:
+  name: InfraMitra
+  links:
+    - https://www.linkedin.com/company/inframitra
+    - https://twitter.com/inframitra
+    - https://www.facebook.com/inframitra
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /posts/:slug/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      permalink: /posts/:slug/
+
+# Exclude from processing
+exclude:
+  - .gitignore
+  - README.md
+  - LICENSE
+  - node_modules
+  - package.json
+  - .jekyll-cache
+  - Gemfile
+  - Gemfile.lock
+
+# Include
+include:
+  - .well-known
+
+# Permalink style
+permalink: pretty
+
+# Timezone
+timezone: Asia/Kolkata
+
+# Liquid
+liquid:
+  error_mode: strict
+
+# Build settings
+safe: true
+verbose: true
+incremental: true
+future: false
+
+# SASS
+sass:
+  style: :compressed
+  load_paths:
+    - _sass
+
+# Analytics (optional)
+google_analytics: UA-XXXXX-Y
+
+# GitHub Pages settings
+github_pages_domain: blog.inframitra.com
+repository: inframitra/blog
