@@ -3,1465 +3,849 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>InfraMitra Blog Automation System</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<title>InfraMitra Blog Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
-:root {
-  --dark:#0C1222; --dark2:#162032; --dark3:#1e2d42;
-  --blue:#38BDF8; --teal:#34D399; --amber:#FBBF24;
-  --red:#F87171; --purple:#A78BFA;
-  --green:#2D8A3E; --cream:#f7f5f0;
-  --ink:#1a1a18; --ink2:#3d3d39; --ink3:#717169;
-  --border:#e2e0d8; --white:#fff;
-  --serif:'DM Serif Display',Georgia,serif;
-  --sans:'DM Sans',system-ui,sans-serif;
-}
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-body{font-family:var(--sans);background:#f0f2f5;color:var(--ink);line-height:1.6;min-height:100vh}
-
-/* Layout */
-.app{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+:root{--dk:#0C1222;--dk2:#162032;--bl:#38BDF8;--tl:#34D399;--am:#FBBF24;--rd:#F87171;
+--bdr:#e2e0d8;--wh:#fff;--ink:#1a1a18;--ink2:#3d3d39;--ink3:#717169;--bg:#f0f2f5;
+--serif:'DM Serif Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);min-height:100vh}
+.app{display:grid;grid-template-columns:220px 1fr;min-height:100vh}
 
 /* Sidebar */
-.sidebar{background:var(--dark);padding:0;display:flex;flex-direction:column;position:fixed;width:240px;height:100vh;overflow-y:auto}
-.sidebar-logo{padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:10px}
-.sidebar-logo img{width:32px;height:32px;border-radius:8px}
-.sidebar-logo-text .name{font-size:14px;font-weight:600;color:#fff;display:block;line-height:1.2}
-.sidebar-logo-text .sub{font-size:10px;color:rgba(255,255,255,.35);letter-spacing:1px;text-transform:uppercase}
-.sidebar-section{padding:16px 12px 8px;font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.3)}
-.nav-item{display:flex;align-items:center;gap:10px;padding:9px 16px;border-radius:6px;margin:2px 8px;cursor:pointer;color:rgba(255,255,255,.55);font-size:13px;transition:all .15s}
-.nav-item:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.85)}
-.nav-item.active{background:rgba(56,189,248,.15);color:var(--blue)}
-.nav-item .icon{font-size:16px;width:18px;text-align:center}
-.nav-badge{margin-left:auto;background:var(--red);color:#fff;font-size:10px;font-weight:600;padding:2px 6px;border-radius:10px;line-height:1}
-.nav-badge.green{background:rgba(52,211,153,.25);color:var(--teal)}
-.sidebar-bottom{margin-top:auto;padding:16px;border-top:1px solid rgba(255,255,255,.06)}
-.config-btn{width:100%;background:rgba(56,189,248,.12);color:var(--blue);border:1px solid rgba(56,189,248,.2);padding:9px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--sans)}
-.config-btn:hover{background:rgba(56,189,248,.2)}
+.sb{background:var(--dk);position:fixed;width:220px;height:100vh;overflow-y:auto;display:flex;flex-direction:column}
+.sb-logo{padding:18px 16px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:10px}
+.sb-logo svg{flex-shrink:0}
+.sb-name{font-size:14px;font-weight:600;color:#fff;display:block}
+.sb-sub{font-size:10px;color:rgba(255,255,255,.35);letter-spacing:1px;text-transform:uppercase}
+.sb-sect{padding:14px 12px 6px;font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.28)}
+.nav-i{display:flex;align-items:center;gap:9px;padding:8px 14px;border-radius:6px;margin:1px 8px;cursor:pointer;color:rgba(255,255,255,.5);font-size:13px;transition:all .15s;border:none;background:none;width:calc(100% - 16px);text-align:left;font-family:var(--sans)}
+.nav-i:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.85)}
+.nav-i.on{background:rgba(56,189,248,.15);color:var(--bl)}
+.nbadge{margin-left:auto;font-size:10px;font-weight:600;padding:2px 6px;border-radius:10px;line-height:1}
+.nb-red{background:#f87171;color:#fff}
+.nb-grn{background:rgba(52,211,153,.2);color:var(--tl)}
+.sb-bot{margin-top:auto;padding:14px;border-top:1px solid rgba(255,255,255,.06)}
+.cfg-btn{width:100%;background:rgba(56,189,248,.1);color:var(--bl);border:1px solid rgba(56,189,248,.18);padding:8px;border-radius:7px;font-size:12px;font-weight:500;cursor:pointer;font-family:var(--sans)}
 
-/* Main content */
-.main{margin-left:240px;padding:28px;min-height:100vh}
+/* Main */
+.main{margin-left:220px;padding:24px}
+.pg-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.pg-title{font-family:var(--serif);font-size:24px;font-weight:400;color:var(--ink)}
+.pg-title small{font-size:12px;font-weight:400;color:var(--ink3);font-family:var(--sans);margin-left:8px}
+.hdr-actions{display:flex;gap:8px}
 
-/* Header */
-.page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
-.page-title{font-family:var(--serif);font-size:26px;font-weight:400;color:var(--ink)}
-.page-title span{font-size:13px;font-weight:400;color:var(--ink3);font-family:var(--sans);margin-left:8px}
-.header-actions{display:flex;gap:10px}
-.btn{padding:9px 18px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--sans);border:none;transition:all .2s}
-.btn-primary{background:linear-gradient(135deg,#38BDF8,#34D399);color:var(--dark)}
-.btn-primary:hover{opacity:.88}
-.btn-ghost{background:var(--white);border:1px solid var(--border);color:var(--ink2)}
-.btn-ghost:hover{border-color:#999}
-.btn-sm{padding:6px 12px;font-size:12px;border-radius:6px}
-.btn-approve{background:#e1f5ee;color:#0a5c42;border:1px solid #9fe1cb}
-.btn-approve:hover{background:#d0f0e4}
-.btn-reject{background:#fce4e4;color:#7a1f1f;border:1px solid #f5a5a5}
-.btn-reject:hover{background:#f8d0d0}
-.btn-publish{background:linear-gradient(135deg,#38BDF8,#34D399);color:var(--dark);border:none}
-.btn-publish:hover{opacity:.88}
-.btn-edit{background:#f0f2f5;color:var(--ink2);border:1px solid var(--border)}
-.btn-edit:hover{background:#e5e7eb}
-.btn-danger{background:#fce4e4;color:#7a1f1f;border:1px solid #f5a5a5}
+/* Buttons */
+.btn{padding:8px 16px;border-radius:7px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--sans);border:none;transition:all .18s;display:inline-flex;align-items:center;gap:5px}
+.btn-p{background:linear-gradient(135deg,#38BDF8,#34D399);color:var(--dk)}
+.btn-p:hover{opacity:.87}
+.btn-g{background:var(--wh);border:1px solid var(--bdr);color:var(--ink2)}
+.btn-g:hover{border-color:#999}
+.btn-sm{padding:6px 11px;font-size:12px;border-radius:6px}
+.btn-ok{background:#e1f5ee;color:#0a5c42;border:1px solid #9fe1cb}
+.btn-ok:hover{background:#d0f0e4}
+.btn-no{background:#fce4e4;color:#7a1f1f;border:1px solid #f5a5a5}
+.btn-no:hover{background:#f8d0d0}
+.btn-pub{background:linear-gradient(135deg,#38BDF8,#34D399);color:var(--dk);border:none}
+.btn-pub:hover{opacity:.87}
+.btn-ed{background:#f0f2f5;color:var(--ink2);border:1px solid var(--bdr)}
 
-/* Stat cards */
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
-.stat-card{background:var(--white);border-radius:12px;border:1px solid var(--border);padding:18px 20px}
-.stat-label{font-size:12px;color:var(--ink3);margin-bottom:6px}
-.stat-value{font-family:var(--serif);font-size:28px;font-weight:400;color:var(--ink);line-height:1}
-.stat-sub{font-size:11px;margin-top:4px}
-.stat-sub.up{color:#0a5c42} .stat-sub.neutral{color:var(--ink3)}
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.stat{background:var(--wh);border-radius:10px;border:1px solid var(--bdr);padding:16px 18px}
+.stat-lbl{font-size:11px;color:var(--ink3);margin-bottom:5px}
+.stat-val{font-family:var(--serif);font-size:26px;font-weight:400;color:var(--ink);line-height:1}
+.stat-s{font-size:11px;margin-top:3px;color:var(--ink3)}
+.stat-s.up{color:#0a5c42}
 
 /* Section */
-.section{display:none} .section.active{display:block}
-.card{background:var(--white);border-radius:12px;border:1px solid var(--border);margin-bottom:16px;overflow:hidden}
-.card-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.card-title{font-size:14px;font-weight:500;color:var(--ink)}
-.card-body{padding:20px}
+.sec{display:none}.sec.on{display:block}
+.card{background:var(--wh);border-radius:10px;border:1px solid var(--bdr);margin-bottom:14px;overflow:hidden}
+.card-hdr{padding:14px 18px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between}
+.card-ttl{font-size:14px;font-weight:500;color:var(--ink)}
+.card-body{padding:18px}
 
-/* Post queue */
-.post-item{border:1px solid var(--border);border-radius:10px;margin-bottom:12px;overflow:hidden;background:var(--white);transition:all .2s}
-.post-item:hover{border-color:#aaa;box-shadow:0 4px 12px rgba(0,0,0,.06)}
-.post-item-header{padding:14px 16px;display:grid;grid-template-columns:1fr auto;align-items:start;gap:12px;cursor:pointer}
-.post-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:4px}
-.post-title{font-size:14px;font-weight:500;color:var(--ink);line-height:1.4}
-.post-excerpt{font-size:12px;color:var(--ink3);margin-top:4px;line-height:1.5}
-.tag{font-size:11px;font-weight:500;padding:2px 8px;border-radius:10px}
-.tag-amc{background:#e1f5ee;color:#0a5c42}
-.tag-cost{background:#eaf3de;color:#2e5c0d}
-.tag-speed{background:#e3f2fd;color:#0d47a1}
-.tag-sustain{background:#fef3e2;color:#7a4a08}
-.tag-case{background:#f0eafb;color:#4a2080}
-.status-badge{font-size:11px;font-weight:500;padding:3px 10px;border-radius:12px;white-space:nowrap}
-.s-pending{background:#fff3cd;color:#856404}
-.s-approved{background:#d4edda;color:#155724}
-.s-published{background:#d1ecf1;color:#0c5460}
-.s-rejected{background:#f8d7da;color:#721c24}
-.s-generating{background:#e2e3e5;color:#383d41}
+/* Pipeline */
+.pipe{display:flex;background:var(--wh);border:1px solid var(--bdr);border-radius:10px;overflow:hidden;margin-bottom:20px}
+.ps{flex:1;padding:12px 14px;border-right:1px solid var(--bdr)}
+.ps:last-child{border-right:none}
+.ps.act{background:#f0f9ff}
+.ps-num{font-size:10px;font-weight:600;color:var(--ink3);letter-spacing:1px;text-transform:uppercase;margin-bottom:3px}
+.ps-name{font-size:13px;font-weight:500;color:var(--ink)}
+.ps-desc{font-size:11px;color:var(--ink3);margin-top:2px}
+.dot{width:7px;height:7px;border-radius:50%;margin-bottom:7px}
+.dot-g{background:var(--tl)}.dot-a{background:var(--am)}.dot-b{background:var(--bl)}.dot-x{background:#ccc}
 
-/* Expand area */
-.post-expand{display:none;padding:0 16px 16px}
-.post-expand.open{display:block}
-.platform-preview{background:#f8f9fa;border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:8px}
-.platform-label{font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;margin-bottom:8px;display:inline-block}
-.lbl-ig{background:#fce4ec;color:#c2185b}
-.lbl-li{background:#e8f0fe;color:#0d47a1}
-.lbl-fb{background:#e3f2fd;color:#1565c0}
-.lbl-wa{background:#e8f5e9;color:#1b5e20}
-.platform-text{font-size:12px;color:var(--ink2);line-height:1.65;white-space:pre-wrap;font-family:'Courier New',monospace}
-.post-actions{display:flex;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+/* Post item */
+.pi{border:1px solid var(--bdr);border-radius:9px;margin-bottom:10px;overflow:hidden;background:var(--wh);transition:border-color .2s}
+.pi:hover{border-color:#aaa}
+.pi-hdr{padding:12px 14px;display:grid;grid-template-columns:1fr auto;gap:10px;cursor:pointer;align-items:start}
+.pi-title{font-size:14px;font-weight:500;color:var(--ink);line-height:1.4}
+.pi-exc{font-size:12px;color:var(--ink3);margin-top:3px;line-height:1.5}
+.pi-meta{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-top:7px}
+.pi-exp{display:none;padding:0 14px 14px}
+.pi-exp.open{display:block}
+.tag{font-size:11px;font-weight:500;padding:2px 7px;border-radius:9px}
+.t-amc{background:#e1f5ee;color:#0a5c42}
+.t-cost{background:#eaf3de;color:#2e5c0d}
+.t-speed{background:#e3f2fd;color:#0d47a1}
+.t-sus{background:#fef3e2;color:#7a4a08}
+.t-case{background:#f0eafb;color:#4a2080}
+.sbadge{font-size:11px;font-weight:500;padding:3px 9px;border-radius:11px;white-space:nowrap}
+.s-pend{background:#fff3cd;color:#856404}
+.s-app{background:#d4edda;color:#155724}
+.s-pub{background:#d1ecf1;color:#0c5460}
+.s-rej{background:#f8d7da;color:#721c24}
 
-/* Calendar grid */
-.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:24px}
-.cal-day{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:8px;min-height:80px;position:relative}
-.cal-day-num{font-size:11px;font-weight:500;color:var(--ink3);margin-bottom:4px}
-.cal-post{font-size:10px;padding:2px 6px;border-radius:4px;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
-.cal-post.p-amc{background:#e1f5ee;color:#0a5c42}
-.cal-post.p-cost{background:#eaf3de;color:#2e5c0d}
-.cal-post.p-speed{background:#e3f2fd;color:#0d47a1}
-.cal-post.p-sustain{background:#fef3e2;color:#7a4a08}
-.cal-post.p-case{background:#f0eafb;color:#4a2080}
-.cal-header{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:6px}
-.cal-day-name{font-size:11px;font-weight:500;color:var(--ink3);text-align:center;padding:4px 0}
+/* Platform previews */
+.plat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.plat{background:#f8f9fa;border:1px solid var(--bdr);border-radius:7px;padding:10px}
+.plat-lbl{font-size:11px;font-weight:600;padding:2px 7px;border-radius:9px;margin-bottom:7px;display:inline-block}
+.l-ig{background:#fce4ec;color:#c2185b}.l-li{background:#e8f0fe;color:#0d47a1}
+.l-fb{background:#e3f2fd;color:#1565c0}.l-wa{background:#e8f5e9;color:#1b5e20}
+.plat-txt{font-size:11px;color:var(--ink2);line-height:1.6;white-space:pre-wrap;font-family:'Courier New',monospace;max-height:140px;overflow-y:auto}
+.pi-actions{display:flex;gap:7px;padding-top:10px;border-top:1px solid var(--bdr);margin-top:2px}
 
-/* Generate form */
-.form-group{margin-bottom:16px}
-.form-label{font-size:13px;font-weight:500;color:var(--ink2);margin-bottom:6px;display:block}
-.form-input{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-family:var(--sans);font-size:13px;color:var(--ink);background:var(--white)}
-.form-input:focus{outline:none;border-color:#38BDF8;box-shadow:0 0 0 3px rgba(56,189,248,.1)}
-select.form-input{cursor:pointer}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+/* Calendar */
+.cal-wrap{margin-bottom:20px}
+.cal-names{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:5px}
+.cal-dn{font-size:11px;font-weight:500;color:var(--ink3);text-align:center;padding:3px 0}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.cal-day{background:var(--wh);border:1px solid var(--bdr);border-radius:7px;padding:7px;min-height:75px}
+.cal-num{font-size:11px;font-weight:500;color:var(--ink3);margin-bottom:3px}
+.cal-post{font-size:10px;padding:2px 5px;border-radius:3px;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+.cp-amc{background:#e1f5ee;color:#0a5c42}.cp-cost{background:#eaf3de;color:#2e5c0d}
+.cp-speed{background:#e3f2fd;color:#0d47a1}.cp-sus{background:#fef3e2;color:#7a4a08}
+.cp-case{background:#f0eafb;color:#4a2080}
 
-/* Toast */
-.toast{position:fixed;bottom:24px;right:24px;background:var(--dark);color:#fff;padding:12px 20px;border-radius:10px;font-size:13px;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;display:flex;align-items:center;gap:8px}
-.toast.show{opacity:1}
-.toast.success{border-left:3px solid var(--teal)}
-.toast.error{border-left:3px solid var(--red)}
+/* Form */
+.fg{margin-bottom:14px}
+.fl{font-size:13px;font-weight:500;color:var(--ink2);margin-bottom:5px;display:block}
+.fi{width:100%;padding:8px 11px;border:1px solid var(--bdr);border-radius:7px;font-family:var(--sans);font-size:13px;color:var(--ink);background:var(--wh)}
+.fi:focus{outline:none;border-color:var(--bl);box-shadow:0 0 0 2px rgba(56,189,248,.1)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:11px}
 
-/* Loading spinner */
-.spinner{width:16px;height:16px;border:2px solid rgba(56,189,248,.3);border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite;display:inline-block;vertical-align:middle}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-/* Config modal */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
-.modal-overlay.open{opacity:1;pointer-events:all}
-.modal{background:var(--white);border-radius:16px;padding:28px;width:520px;max-width:90vw;position:relative}
-.modal h3{font-family:var(--serif);font-size:20px;font-weight:400;margin-bottom:4px}
-.modal p{font-size:13px;color:var(--ink3);margin-bottom:20px}
-.modal-close{position:absolute;top:16px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;color:var(--ink3);line-height:1}
-
-/* Empty state */
-.empty{text-align:center;padding:48px 20px;color:var(--ink3)}
-.empty-icon{font-size:40px;margin-bottom:12px}
-.empty-title{font-size:15px;font-weight:500;color:var(--ink2);margin-bottom:6px}
-.empty-sub{font-size:13px}
-
-/* Pipeline flow */
-.pipeline{display:flex;align-items:center;gap:0;margin-bottom:24px;background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden}
-.pipe-step{flex:1;padding:14px 16px;border-right:1px solid var(--border);position:relative}
-.pipe-step:last-child{border-right:none}
-.pipe-step .num{font-size:10px;font-weight:600;color:var(--ink3);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
-.pipe-step .name{font-size:13px;font-weight:500;color:var(--ink)}
-.pipe-step .desc{font-size:11px;color:var(--ink3);margin-top:2px}
-.pipe-step.active{background:#f0f9ff}
-.pipe-step .dot{width:8px;height:8px;border-radius:50%;margin-bottom:8px}
-.dot-green{background:var(--teal)}
-.dot-amber{background:var(--amber)}
-.dot-blue{background:var(--blue)}
-.dot-gray{background:#ccc}
+/* Settings */
+.settings-g{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.s-item{background:var(--wh);border:1px solid var(--bdr);border-radius:9px;padding:14px}
+.s-lbl{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:3px}
+.s-desc{font-size:12px;color:var(--ink3);margin-bottom:8px}
+.tog{display:flex;align-items:center;justify-content:space-between}
+.tog-sw{width:34px;height:18px;background:#ccc;border-radius:9px;position:relative;cursor:pointer;transition:background .2s;flex-shrink:0}
+.tog-sw.on{background:var(--tl)}
+.tog-sw::after{content:'';position:absolute;width:14px;height:14px;background:#fff;border-radius:50%;top:2px;left:2px;transition:transform .2s}
+.tog-sw.on::after{transform:translateX(16px)}
 
 /* Tabs */
-.tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:20px}
-.tab-btn{padding:10px 16px;font-size:13px;font-weight:400;color:var(--ink3);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-1px;font-family:var(--sans);transition:all .15s}
-.tab-btn:hover{color:var(--ink)}
-.tab-btn.active{color:var(--ink);font-weight:500;border-bottom-color:var(--ink)}
+.tabs{display:flex;border-bottom:1px solid var(--bdr);margin-bottom:18px}
+.tab{padding:9px 14px;font-size:13px;color:var(--ink3);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-1px;font-family:var(--sans)}
+.tab:hover{color:var(--ink)}.tab.on{color:var(--ink);font-weight:500;border-bottom-color:var(--ink)}
 
-/* Settings grid */
-.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.setting-item{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px}
-.setting-label{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:4px}
-.setting-desc{font-size:12px;color:var(--ink3);margin-bottom:10px}
-.toggle{display:flex;align-items:center;justify-content:space-between}
-.toggle-sw{width:36px;height:20px;background:#ccc;border-radius:10px;position:relative;cursor:pointer;transition:background .2s}
-.toggle-sw.on{background:var(--teal)}
-.toggle-sw::after{content:'';position:absolute;width:16px;height:16px;background:#fff;border-radius:50%;top:2px;left:2px;transition:transform .2s}
-.toggle-sw.on::after{transform:translateX(16px)}
+/* Toast */
+.toast{position:fixed;bottom:20px;right:20px;background:var(--dk);color:#fff;padding:11px 18px;border-radius:9px;font-size:13px;z-index:999;opacity:0;transition:opacity .25s;pointer-events:none}
+.toast.show{opacity:1}
+.toast.ok{border-left:3px solid var(--tl)}.toast.err{border-left:3px solid var(--rd)}
+
+/* Modal */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.42);z-index:100;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .18s}
+.modal-bg.open{opacity:1;pointer-events:all}
+.modal{background:var(--wh);border-radius:14px;padding:26px;width:500px;max-width:92vw;position:relative}
+.modal h3{font-family:var(--serif);font-size:19px;font-weight:400;margin-bottom:4px}
+.modal p{font-size:13px;color:var(--ink3);margin-bottom:18px}
+.modal-x{position:absolute;top:14px;right:14px;background:none;border:none;font-size:19px;cursor:pointer;color:var(--ink3);line-height:1}
+
+/* Spinner */
+.spin{width:14px;height:14px;border:2px solid rgba(56,189,248,.3);border-top-color:var(--bl);border-radius:50%;animation:sp .7s linear infinite;display:inline-block}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* Empty */
+.empty{text-align:center;padding:40px 20px;color:var(--ink3)}
+.empty-icon{font-size:36px;margin-bottom:10px}
+.empty-ttl{font-size:14px;font-weight:500;color:var(--ink2);margin-bottom:5px}
+.empty-sub{font-size:12px}
 
 @media(max-width:768px){
-  .app{grid-template-columns:1fr}
-  .sidebar{display:none}
-  .main{margin-left:0}
-  .stats-grid{grid-template-columns:1fr 1fr}
-  .form-row{grid-template-columns:1fr}
-  .settings-grid{grid-template-columns:1fr}
+  .app{grid-template-columns:1fr}.sb{display:none}.main{margin-left:0}
+  .stats{grid-template-columns:1fr 1fr}.frow{grid-template-columns:1fr}
+  .settings-g{grid-template-columns:1fr}.plat-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
-
 <div class="app">
 
 <!-- SIDEBAR -->
-<aside class="sidebar">
-  <div class="sidebar-logo">
-    <svg width="32" height="32" viewBox="0 0 36 36" fill="none">
+<aside class="sb">
+  <div class="sb-logo">
+    <svg width="30" height="30" viewBox="0 0 36 36" fill="none">
       <polygon points="18,2 33,10.5 33,25.5 18,34 3,25.5 3,10.5" fill="none" stroke="#2D8A3E" stroke-width="1.8"/>
-      <polygon points="18,7 29,13.5 29,22.5 18,29 7,22.5 7,13.5" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
       <circle cx="18" cy="18" r="4.5" fill="#2D8A3E"/>
-      <circle cx="18" cy="7" r="1.8" fill="rgba(255,255,255,0.55)"/>
-      <circle cx="29" cy="13.5" r="1.8" fill="rgba(255,255,255,0.55)"/>
-      <circle cx="29" cy="22.5" r="1.8" fill="rgba(255,255,255,0.55)"/>
-      <circle cx="18" cy="29" r="1.8" fill="rgba(255,255,255,0.55)"/>
-      <circle cx="7" cy="22.5" r="1.8" fill="rgba(255,255,255,0.55)"/>
-      <circle cx="7" cy="13.5" r="1.8" fill="rgba(255,255,255,0.55)"/>
+      <circle cx="18" cy="7" r="1.8" fill="rgba(255,255,255,0.5)"/>
+      <circle cx="29" cy="13.5" r="1.8" fill="rgba(255,255,255,0.5)"/>
+      <circle cx="29" cy="22.5" r="1.8" fill="rgba(255,255,255,0.5)"/>
+      <circle cx="18" cy="29" r="1.8" fill="rgba(255,255,255,0.5)"/>
+      <circle cx="7" cy="22.5" r="1.8" fill="rgba(255,255,255,0.5)"/>
+      <circle cx="7" cy="13.5" r="1.8" fill="rgba(255,255,255,0.5)"/>
     </svg>
-    <div class="sidebar-logo-text">
-      <span class="name">InfraMitra</span>
-      <span class="sub">Blog Admin</span>
+    <div>
+      <span class="sb-name">InfraMitra</span>
+      <span class="sb-sub">Blog Admin</span>
     </div>
   </div>
-
-  <div class="sidebar-section">Main</div>
-  <div class="nav-item active" onclick="showSection('dashboard',this)">
-    <span class="icon">📊</span> Dashboard
-  </div>
-  <div class="nav-item" onclick="showSection('generate',this)">
-    <span class="icon">✨</span> Generate Post
-  </div>
-  <div class="nav-item" onclick="showSection('review',this)">
-    <span class="icon">👁️</span> Review Queue
-    <span class="nav-badge" id="badge-review">3</span>
-  </div>
-  <div class="nav-item" onclick="showSection('approved',this)">
-    <span class="icon">✅</span> Approved
-    <span class="nav-badge green" id="badge-approved">2</span>
-  </div>
-  <div class="nav-item" onclick="showSection('published',this)">
-    <span class="icon">🌐</span> Published
-  </div>
-  <div class="nav-item" onclick="showSection('calendar',this)">
-    <span class="icon">📅</span> Calendar
-  </div>
-
-  <div class="sidebar-section">System</div>
-  <div class="nav-item" onclick="showSection('settings',this)">
-    <span class="icon">⚙️</span> Settings
-  </div>
-  <div class="nav-item" onclick="showSection('logs',this)">
-    <span class="icon">📋</span> Activity Log
-  </div>
-
-  <div class="sidebar-bottom">
-    <button class="config-btn" onclick="openModal()">🔑 Configure API Keys</button>
+  <div class="sb-sect">Main</div>
+  <button class="nav-i on" onclick="nav('dashboard',this)">📊 Dashboard</button>
+  <button class="nav-i" onclick="nav('generate',this)">✨ Generate Post</button>
+  <button class="nav-i" onclick="nav('review',this)">👁 Review Queue <span class="nbadge nb-red" id="br">3</span></button>
+  <button class="nav-i" onclick="nav('approved',this)">✅ Approved <span class="nbadge nb-grn" id="ba">2</span></button>
+  <button class="nav-i" onclick="nav('published',this)">🌐 Published</button>
+  <button class="nav-i" onclick="nav('calendar',this)">📅 Calendar</button>
+  <div class="sb-sect">System</div>
+  <button class="nav-i" onclick="nav('settings',this)">⚙️ Settings</button>
+  <button class="nav-i" onclick="nav('logs',this)">📋 Activity Log</button>
+  <div class="sb-bot">
+    <button class="cfg-btn" onclick="openModal()">🔑 Configure API Keys</button>
   </div>
 </aside>
 
-<!-- MAIN CONTENT -->
+<!-- MAIN -->
 <main class="main">
 
   <!-- DASHBOARD -->
-  <div id="section-dashboard" class="section active">
-    <div class="page-header">
-      <div>
-        <div class="page-title">Dashboard <span>blog.inframitra.com</span></div>
-      </div>
-      <div class="header-actions">
-        <button class="btn btn-ghost btn-sm" onclick="showSection('generate',document.querySelector('.nav-item:nth-child(3)'))">✨ New Post</button>
-        <button class="btn btn-primary btn-sm" onclick="runDailyGeneration()">⚡ Run Daily AI Generation</button>
+  <div id="s-dashboard" class="sec on">
+    <div class="pg-hdr">
+      <div class="pg-title">Dashboard <small>blog.inframitra.com</small></div>
+      <div class="hdr-actions">
+        <button class="btn btn-g btn-sm" onclick="nav('generate',null)">✨ New Post</button>
+        <button class="btn btn-p btn-sm" onclick="runDaily()">⚡ Run Daily AI Generation</button>
       </div>
     </div>
-
-    <!-- Pipeline -->
-    <div class="pipeline">
-      <div class="pipe-step active">
-        <div class="dot dot-green"></div>
-        <div class="num">Step 1</div>
-        <div class="name">AI Generation</div>
-        <div class="desc">Claude API · 7 AM daily</div>
-      </div>
-      <div class="pipe-step">
-        <div class="dot dot-amber"></div>
-        <div class="num">Step 2</div>
-        <div class="name">Human Review</div>
-        <div class="desc">You read &amp; approve</div>
-      </div>
-      <div class="pipe-step">
-        <div class="dot dot-amber"></div>
-        <div class="num">Step 3</div>
-        <div class="name">One-tap Approval</div>
-        <div class="desc">Approve or request edit</div>
-      </div>
-      <div class="pipe-step">
-        <div class="dot dot-blue"></div>
-        <div class="num">Step 4</div>
-        <div class="name">Auto-publish</div>
-        <div class="desc">GitHub Pages + blog</div>
-      </div>
-      <div class="pipe-step">
-        <div class="dot dot-gray"></div>
-        <div class="num">Step 5</div>
-        <div class="name">Social Sharing</div>
-        <div class="desc">LinkedIn · IG · WA · FB</div>
-      </div>
+    <div class="pipe">
+      <div class="ps act"><div class="dot dot-g"></div><div class="ps-num">Step 1</div><div class="ps-name">AI Generation</div><div class="ps-desc">Claude API · 7AM daily</div></div>
+      <div class="ps"><div class="dot dot-a"></div><div class="ps-num">Step 2</div><div class="ps-name">Human Review</div><div class="ps-desc">You read and approve</div></div>
+      <div class="ps"><div class="dot dot-a"></div><div class="ps-num">Step 3</div><div class="ps-name">Approval</div><div class="ps-desc">One-tap approve</div></div>
+      <div class="ps"><div class="dot dot-b"></div><div class="ps-num">Step 4</div><div class="ps-name">Auto-publish</div><div class="ps-desc">GitHub Pages + blog</div></div>
+      <div class="ps"><div class="dot dot-x"></div><div class="ps-num">Step 5</div><div class="ps-name">Social Sharing</div><div class="ps-desc">IG · LI · WA · FB</div></div>
     </div>
-
-    <!-- Stats -->
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-label">Pending Review</div>
-        <div class="stat-value" id="stat-pending">3</div>
-        <div class="stat-sub neutral">Waiting for your approval</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Published This Month</div>
-        <div class="stat-value">18</div>
-        <div class="stat-sub up">↑ 6 vs last month</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Blog Views (30d)</div>
-        <div class="stat-value">4,820</div>
-        <div class="stat-sub up">↑ 34% growth</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Leads Generated</div>
-        <div class="stat-value">47</div>
-        <div class="stat-sub up">↑ 12 this week</div>
-      </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-lbl">Pending Review</div><div class="stat-val" id="st-pend">3</div><div class="stat-s">Awaiting your approval</div></div>
+      <div class="stat"><div class="stat-lbl">Published This Month</div><div class="stat-val">18</div><div class="stat-s up">↑ 6 vs last month</div></div>
+      <div class="stat"><div class="stat-lbl">Blog Views (30d)</div><div class="stat-val">4,820</div><div class="stat-s up">↑ 34% growth</div></div>
+      <div class="stat"><div class="stat-lbl">Leads Generated</div><div class="stat-val">47</div><div class="stat-s up">↑ 12 this week</div></div>
     </div>
-
-    <!-- Recent queue -->
     <div class="card">
-      <div class="card-header">
-        <span class="card-title">⏳ Needs Your Review</span>
-        <button class="btn btn-ghost btn-sm" onclick="showSection('review',null)">View all →</button>
-      </div>
-      <div class="card-body" id="dashboard-queue"></div>
+      <div class="card-hdr"><span class="card-ttl">⏳ Needs Your Review</span><button class="btn btn-g btn-sm" onclick="nav('review',null)">View all →</button></div>
+      <div class="card-body" id="db-queue"></div>
     </div>
-
-    <!-- Recent published -->
     <div class="card">
-      <div class="card-header">
-        <span class="card-title">✅ Recently Published</span>
-      </div>
-      <div class="card-body" id="dashboard-published"></div>
+      <div class="card-hdr"><span class="card-ttl">✅ Recently Published</span></div>
+      <div class="card-body" id="db-pub"></div>
     </div>
   </div>
 
-  <!-- GENERATE POST -->
-  <div id="section-generate" class="section">
-    <div class="page-header">
-      <div class="page-title">Generate New Post</div>
-    </div>
+  <!-- GENERATE -->
+  <div id="s-generate" class="sec">
+    <div class="pg-hdr"><div class="pg-title">Generate New Post</div></div>
     <div class="card">
-      <div class="card-header"><span class="card-title">✨ AI Content Generator</span></div>
+      <div class="card-hdr"><span class="card-ttl">✨ AI Content Generator</span></div>
       <div class="card-body">
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Content Topic / Theme</label>
-            <select class="form-input" id="gen-topic">
-              <option value="amc">🛡️ AMC Support — End-of-life hardware peace of mind</option>
-              <option value="cost">💰 Cost Savings — Refurbished vs new comparison</option>
-              <option value="speed">⚡ 48-Hour Deployment — Fast infrastructure setup</option>
-              <option value="sustain">🌱 E-Waste / ESG — Sustainability & CPCB compliance</option>
-              <option value="case">📊 Case Study — Indian startup/SMB success story</option>
+        <div class="frow">
+          <div class="fg">
+            <label class="fl">Topic / Theme</label>
+            <select class="fi" id="g-topic">
+              <option value="amc">🛡 AMC Support — End-of-life peace of mind</option>
+              <option value="cost">💰 Cost Savings — Refurbished vs new</option>
+              <option value="speed">⚡ 48-Hour Deployment</option>
+              <option value="sustain">🌱 E-Waste / ESG — CPCB compliance</option>
+              <option value="case">📊 Case Study — Indian startup success</option>
             </select>
           </div>
-          <div class="form-group">
-            <label class="form-label">Target Audience</label>
-            <select class="form-input" id="gen-audience">
+          <div class="fg">
+            <label class="fl">Target Audience</label>
+            <select class="fi" id="g-audience">
               <option>Indian Startups (seed to Series A)</option>
-              <option>Small & Medium Business (SMB)</option>
+              <option>Small and Medium Business</option>
               <option>Enterprise IT Managers</option>
               <option>CTO / Technical Founders</option>
-              <option>CFO / Finance Decision Makers</option>
+              <option>CFO / Finance Leaders</option>
             </select>
           </div>
         </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Specific Use Case / Angle (optional)</label>
-            <input class="form-input" id="gen-angle" type="text" placeholder="e.g. Bangalore fintech, Dell R750, ₹30L savings">
+        <div class="frow">
+          <div class="fg">
+            <label class="fl">Specific Angle (optional)</label>
+            <input class="fi" id="g-angle" type="text" placeholder="e.g. Bangalore fintech, Dell R750, 30L savings">
           </div>
-          <div class="form-group">
-            <label class="form-label">Publish Date</label>
-            <input class="form-input" id="gen-date" type="date">
+          <div class="fg">
+            <label class="fl">Publish Date</label>
+            <input class="fi" id="g-date" type="date">
           </div>
         </div>
-        <div class="form-group">
-          <label class="form-label">Additional Instructions (optional)</label>
-          <textarea class="form-input" id="gen-instructions" rows="2" style="resize:vertical" placeholder="e.g. Include a cost table, mention HP ProLiant, focus on peace of mind messaging..."></textarea>
+        <div class="fg">
+          <label class="fl">Extra Instructions (optional)</label>
+          <textarea class="fi" id="g-inst" rows="2" style="resize:vertical" placeholder="e.g. Include a cost table, focus on peace-of-mind messaging..."></textarea>
         </div>
-        <div style="display:flex;gap:10px;align-items:center">
-          <button class="btn btn-primary" onclick="generatePost()" id="gen-btn">✨ Generate with Claude AI</button>
-          <span id="gen-status" style="font-size:13px;color:var(--ink3)"></span>
+        <div style="display:flex;align-items:center;gap:10px">
+          <button class="btn btn-p" onclick="genPost()" id="g-btn">✨ Generate with Claude AI</button>
+          <span id="g-status" style="font-size:13px;color:#717169"></span>
         </div>
       </div>
     </div>
-    <div id="gen-preview" style="display:none">
+    <div id="g-preview" style="display:none">
       <div class="card">
-        <div class="card-header">
-          <span class="card-title">📝 Generated Post — Review Before Saving</span>
+        <div class="card-hdr">
+          <span class="card-ttl">📝 Generated — Review Before Saving</span>
           <div style="display:flex;gap:8px">
-            <button class="btn btn-ghost btn-sm" onclick="regenerate()">🔄 Regenerate</button>
-            <button class="btn btn-primary btn-sm" onclick="saveToQueue()">Save to Review Queue →</button>
+            <button class="btn btn-g btn-sm" onclick="regenPost()">🔄 Regenerate</button>
+            <button class="btn btn-p btn-sm" onclick="saveQueue()">Save to Queue →</button>
           </div>
         </div>
-        <div class="card-body" id="gen-output"></div>
+        <div class="card-body" id="g-out"></div>
       </div>
     </div>
   </div>
 
-  <!-- REVIEW QUEUE -->
-  <div id="section-review" class="section">
-    <div class="page-header">
-      <div class="page-title">Review Queue <span id="review-count-label"></span></div>
-      <button class="btn btn-ghost btn-sm" onclick="approveAll()">✅ Approve All</button>
+  <!-- REVIEW -->
+  <div id="s-review" class="sec">
+    <div class="pg-hdr">
+      <div class="pg-title">Review Queue <small id="rev-ct"></small></div>
+      <button class="btn btn-g btn-sm" onclick="approveAll()">✅ Approve All</button>
     </div>
-    <div id="review-list"></div>
+    <div id="rev-list"></div>
   </div>
 
   <!-- APPROVED -->
-  <div id="section-approved" class="section">
-    <div class="page-header">
-      <div class="page-title">Approved Posts</div>
-      <button class="btn btn-primary btn-sm" onclick="publishAll()">🚀 Publish All to GitHub</button>
+  <div id="s-approved" class="sec">
+    <div class="pg-hdr">
+      <div class="pg-title">Approved Posts</div>
+      <button class="btn btn-p btn-sm" onclick="publishAll()">🚀 Publish All to GitHub</button>
     </div>
-    <div id="approved-list"></div>
+    <div id="app-list"></div>
   </div>
 
   <!-- PUBLISHED -->
-  <div id="section-published" class="section">
-    <div class="page-header">
-      <div class="page-title">Published Posts</div>
-    </div>
-    <div id="published-list"></div>
+  <div id="s-published" class="sec">
+    <div class="pg-hdr"><div class="pg-title">Published Posts</div></div>
+    <div id="pub-list"></div>
   </div>
 
   <!-- CALENDAR -->
-  <div id="section-calendar" class="section">
-    <div class="page-header">
-      <div class="page-title">Publishing Calendar — June 2025</div>
-      <button class="btn btn-ghost btn-sm" onclick="showSection('generate',null)">+ Add Post</button>
+  <div id="s-calendar" class="sec">
+    <div class="pg-hdr">
+      <div class="pg-title">Content Calendar — June 2025</div>
+      <button class="btn btn-g btn-sm" onclick="nav('generate',null)">+ Add Post</button>
     </div>
-    <div class="cal-header">
-      <div class="cal-day-name">Mon</div><div class="cal-day-name">Tue</div>
-      <div class="cal-day-name">Wed</div><div class="cal-day-name">Thu</div>
-      <div class="cal-day-name">Fri</div><div class="cal-day-name">Sat</div>
-      <div class="cal-day-name">Sun</div>
+    <div class="cal-wrap">
+      <div class="cal-names">
+        <div class="cal-dn">Mon</div><div class="cal-dn">Tue</div><div class="cal-dn">Wed</div>
+        <div class="cal-dn">Thu</div><div class="cal-dn">Fri</div><div class="cal-dn">Sat</div><div class="cal-dn">Sun</div>
+      </div>
+      <div class="cal-grid" id="cal-grid"></div>
     </div>
-    <div class="calendar-grid" id="calendar-grid"></div>
   </div>
 
   <!-- SETTINGS -->
-  <div id="section-settings" class="section">
-    <div class="page-header"><div class="page-title">Settings</div></div>
+  <div id="s-settings" class="sec">
+    <div class="pg-hdr"><div class="pg-title">Settings</div></div>
     <div class="tabs">
-      <button class="tab-btn active" onclick="settingsTab(this,'tab-auto')">Automation</button>
-      <button class="tab-btn" onclick="settingsTab(this,'tab-github')">GitHub</button>
-      <button class="tab-btn" onclick="settingsTab(this,'tab-notify')">Notifications</button>
+      <button class="tab on" onclick="stab(this,'t-auto')">Automation</button>
+      <button class="tab" onclick="stab(this,'t-gh')">GitHub</button>
+      <button class="tab" onclick="stab(this,'t-notif')">Notifications</button>
     </div>
-
-    <div id="tab-auto">
-      <div class="settings-grid">
-        <div class="setting-item">
-          <div class="setting-label">Daily AI Generation</div>
-          <div class="setting-desc">Automatically generate a new blog post every day at 7 AM IST using Claude API</div>
-          <div class="toggle"><span style="font-size:13px;color:var(--ink3)">Enabled</span><div class="toggle-sw on" onclick="this.classList.toggle('on')"></div></div>
-        </div>
-        <div class="setting-item">
-          <div class="setting-label">Generation Time</div>
-          <div class="setting-desc">Time to trigger daily content generation</div>
-          <input class="form-input" type="time" value="07:00">
-        </div>
-        <div class="setting-item">
-          <div class="setting-label">Auto-publish after approval</div>
-          <div class="setting-desc">Publish to GitHub Pages immediately after human approval — no second click needed</div>
-          <div class="toggle"><span style="font-size:13px;color:var(--ink3)">Enabled</span><div class="toggle-sw on" onclick="this.classList.toggle('on')"></div></div>
-        </div>
-        <div class="setting-item">
-          <div class="setting-label">Require human review</div>
-          <div class="setting-desc">Always require manual approval before publishing. Never skip review.</div>
-          <div class="toggle"><span style="font-size:13px;font-weight:500;color:#0a5c42">Always ON</span><div class="toggle-sw on" style="opacity:.5;cursor:not-allowed"></div></div>
-        </div>
-        <div class="setting-item">
-          <div class="setting-label">Topic Rotation</div>
-          <div class="setting-desc">Rotate topics: AMC → Cost → Speed → E-Waste → Case Study</div>
-          <div class="toggle"><span style="font-size:13px;color:var(--ink3)">Enabled</span><div class="toggle-sw on" onclick="this.classList.toggle('on')"></div></div>
-        </div>
-        <div class="setting-item">
-          <div class="setting-label">Generate social posts</div>
-          <div class="setting-desc">Auto-generate Instagram, LinkedIn, Facebook, WhatsApp versions of each post</div>
-          <div class="toggle"><span style="font-size:13px;color:var(--ink3)">Enabled</span><div class="toggle-sw on" onclick="this.classList.toggle('on')"></div></div>
-        </div>
+    <div id="t-auto">
+      <div class="settings-g">
+        <div class="s-item"><div class="s-lbl">Daily AI Generation</div><div class="s-desc">Generate a new post every day at 7 AM IST using Claude API</div><div class="tog"><span style="font-size:12px;color:#717169">Enabled</span><div class="tog-sw on" onclick="this.classList.toggle('on')"></div></div></div>
+        <div class="s-item"><div class="s-lbl">Generation Time</div><div class="s-desc">Time to trigger daily content generation</div><input class="fi" type="time" value="07:00" style="margin-top:4px"></div>
+        <div class="s-item"><div class="s-lbl">Auto-publish after approval</div><div class="s-desc">Publish to GitHub immediately after human approval</div><div class="tog"><span style="font-size:12px;color:#717169">Enabled</span><div class="tog-sw on" onclick="this.classList.toggle('on')"></div></div></div>
+        <div class="s-item"><div class="s-lbl">Require human review</div><div class="s-desc">Always require manual approval before publishing. Cannot be disabled.</div><div class="tog"><span style="font-size:12px;font-weight:500;color:#0a5c42">Always ON</span><div class="tog-sw on" style="opacity:.5;cursor:not-allowed"></div></div></div>
+        <div class="s-item"><div class="s-lbl">Topic Rotation</div><div class="s-desc">Rotate: AMC → Cost → Speed → E-Waste → Case Study</div><div class="tog"><span style="font-size:12px;color:#717169">Enabled</span><div class="tog-sw on" onclick="this.classList.toggle('on')"></div></div></div>
+        <div class="s-item"><div class="s-lbl">Generate social posts</div><div class="s-desc">Auto-generate Instagram, LinkedIn, Facebook, WhatsApp versions</div><div class="tog"><span style="font-size:12px;color:#717169">Enabled</span><div class="tog-sw on" onclick="this.classList.toggle('on')"></div></div></div>
       </div>
     </div>
-
-    <div id="tab-github" style="display:none">
-      <div class="card">
-        <div class="card-body">
-          <div class="form-group">
-            <label class="form-label">GitHub Repository</label>
-            <input class="form-input" type="text" value="https://github.com/cybernetixhub/Inframitra-blog" readonly>
-          </div>
-          <div class="form-group">
-            <label class="form-label">GitHub Token (stored securely)</label>
-            <input class="form-input" type="password" value="ghp_••••••••••••••••••••">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Branch</label>
-            <input class="form-input" type="text" value="main">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Custom Domain</label>
-            <input class="form-input" type="text" value="blog.inframitra.com">
-          </div>
-          <button class="btn btn-primary btn-sm">💾 Save & Test Connection</button>
-        </div>
-      </div>
+    <div id="t-gh" style="display:none">
+      <div class="card"><div class="card-body">
+        <div class="fg"><label class="fl">GitHub Repository</label><input class="fi" type="text" value="https://github.com/cybernetixhub/Inframitra-blog" readonly></div>
+        <div class="fg"><label class="fl">GitHub Token</label><input class="fi" type="password" value="ghp_configured"></div>
+        <div class="fg"><label class="fl">Branch</label><input class="fi" type="text" value="main"></div>
+        <div class="fg"><label class="fl">Custom Domain</label><input class="fi" type="text" value="blog.inframitra.com"></div>
+        <button class="btn btn-p btn-sm">💾 Save and Test Connection</button>
+      </div></div>
     </div>
-
-    <div id="tab-notify" style="display:none">
-      <div class="settings-grid">
-        <div class="setting-item">
-          <div class="setting-label">Email on new post</div>
-          <div class="setting-desc">Send email when AI generates a new post for review</div>
-          <div class="toggle"><span style="font-size:13px;color:var(--ink3)">Enabled</span><div class="toggle-sw on" onclick="this.classList.toggle('on')"></div></div>
-        </div>
-        <div class="setting-item">
-          <div class="setting-label">WhatsApp approval link</div>
-          <div class="setting-desc">Send WhatsApp message with approve/reject link when post is ready</div>
-          <div class="toggle"><span style="font-size:13px;color:var(--ink3)">Enabled</span><div class="toggle-sw on" onclick="this.classList.toggle('on')"></div></div>
-        </div>
-        <div class="setting-item">
-          <div class="setting-label">Reviewer email</div>
-          <div class="setting-desc">Send review notifications to this address</div>
-          <input class="form-input" type="email" value="admin@inframitra.com" style="margin-top:4px">
-        </div>
-        <div class="setting-item">
-          <div class="setting-label">Reviewer WhatsApp</div>
-          <div class="setting-desc">Send approval links to this number</div>
-          <input class="form-input" type="tel" placeholder="+91 XXXXXXXXXX" style="margin-top:4px">
-        </div>
+    <div id="t-notif" style="display:none">
+      <div class="settings-g">
+        <div class="s-item"><div class="s-lbl">Email on new post</div><div class="s-desc">Notify when AI generates a post for review</div><div class="tog"><span style="font-size:12px;color:#717169">Enabled</span><div class="tog-sw on" onclick="this.classList.toggle('on')"></div></div></div>
+        <div class="s-item"><div class="s-lbl">WhatsApp approval link</div><div class="s-desc">Send approve/reject link via WhatsApp</div><div class="tog"><span style="font-size:12px;color:#717169">Enabled</span><div class="tog-sw on" onclick="this.classList.toggle('on')"></div></div></div>
+        <div class="s-item"><div class="s-lbl">Reviewer email</div><div class="s-desc">Send review notifications here</div><input class="fi" type="email" value="admin@inframitra.com" style="margin-top:4px"></div>
+        <div class="s-item"><div class="s-lbl">Reviewer WhatsApp</div><div class="s-desc">Send approval links to this number</div><input class="fi" type="tel" placeholder="+91 XXXXXXXXXX" style="margin-top:4px"></div>
       </div>
     </div>
   </div>
 
-  <!-- ACTIVITY LOG -->
-  <div id="section-logs" class="section">
-    <div class="page-header"><div class="page-title">Activity Log</div></div>
-    <div class="card">
-      <div class="card-body" id="activity-log"></div>
-    </div>
+  <!-- LOGS -->
+  <div id="s-logs" class="sec">
+    <div class="pg-hdr"><div class="pg-title">Activity Log</div></div>
+    <div class="card"><div class="card-body" id="log-list"></div></div>
   </div>
 
 </main>
 </div>
 
-<!-- CONFIG MODAL -->
-<div class="modal-overlay" id="modal-overlay" onclick="if(event.target===this)closeModal()">
+<!-- MODAL -->
+<div class="modal-bg" id="modal-bg" onclick="if(event.target===this)closeModal()">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal()">×</button>
+    <button class="modal-x" onclick="closeModal()">x</button>
     <h3>Configure API Keys</h3>
-    <p>These keys are stored locally in your browser and never sent to any third party.</p>
-    <div class="form-group">
-      <label class="form-label">Claude API Key (for content generation)</label>
-      <input class="form-input" type="password" id="claude-key" placeholder="sk-ant-...">
-    </div>
-    <div class="form-group">
-      <label class="form-label">GitHub Personal Access Token</label>
-      <input class="form-input" type="password" id="github-key" placeholder="ghp_...">
-    </div>
-    <div class="form-group">
-      <label class="form-label">GitHub Repository URL</label>
-      <input class="form-input" type="text" id="github-repo" value="https://github.com/cybernetixhub/Inframitra-blog">
-    </div>
-    <div style="display:flex;gap:10px;margin-top:4px">
-      <button class="btn btn-primary" onclick="saveConfig()">💾 Save Configuration</button>
-      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+    <p>Keys are stored locally in your browser only.</p>
+    <div class="fg"><label class="fl">Claude API Key</label><input class="fi" type="password" id="ck" placeholder="sk-ant-..."></div>
+    <div class="fg"><label class="fl">GitHub Personal Access Token</label><input class="fi" type="password" id="gk" placeholder="ghp_..."></div>
+    <div class="fg"><label class="fl">GitHub Repository URL</label><input class="fi" type="text" id="gr" value="https://github.com/cybernetixhub/Inframitra-blog"></div>
+    <div style="display:flex;gap:8px;margin-top:4px">
+      <button class="btn btn-p" onclick="saveConfig()">Save Configuration</button>
+      <button class="btn btn-g" onclick="closeModal()">Cancel</button>
     </div>
   </div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script>
-// ── DATA STORE ───────────────────────────────────────────────────────────────
-const posts = [
-  {
-    id:1, status:'pending',
-    title:'When OEM Support Ends, InfraMitra Begins — Keeping Your HP ProLiant Alive',
-    topic:'amc', audience:'Indian Startups', date:'2025-06-02',
-    excerpt:'A Mumbai logistics company avoided ₹28 Lakhs in hardware replacement cost by signing InfraMitra\'s end-of-life AMC. Same 99.9% uptime SLA, zero OEM dependency.',
-    blog:`## When OEM Support Ends, InfraMitra Begins
-
-When HP discontinued support for the DL360 Gen9 in 2021, a Mumbai logistics company faced a choice: spend ₹28 Lakhs replacing their fleet, or find a smarter path.
-
-They chose InfraMitra's Gold AMC.
-
-Three years later, their servers are still running at 99.97% uptime. Every 4-hour response SLA has been met. Their infrastructure team sleeps soundly.
-
-### The Real Cost of End-of-Life Hardware
-
-Most startup CTOs assume "end-of-life" means "time to replace." It doesn't. It means the manufacturer is done supporting it — but InfraMitra is just getting started.
-
-Our AMC covers:
-- Proactive 24/7 monitoring
-- 4-hour on-site response (Gold tier)
-- Spare parts pre-stocked for your exact hardware model
-- Firmware and security patch management
-- Support that continues indefinitely — not just until your warranty runs out
-
-### The Numbers
-
-**Without InfraMitra AMC:**
-- Hardware replacement: ₹28 Lakhs
-- Procurement wait: 60 days
-- Risk of data loss during transition: High
-
-**With InfraMitra Gold AMC:**
-- Monthly cost: ₹4,000/device/month
-- Cumulative cost (3 years, 12 devices): ₹17.28 Lakhs
-- Savings vs replacement: ₹10.72 Lakhs
-- Downtime: Zero
-
-The question isn't whether you can afford AMC. It's whether you can afford not to have it.`,
-    ig:`🛡️ HP ProLiant. Bought 2018. OEM support ended 2022. Still running in 2025 — zero downtime.
-
-How? InfraMitra AMC. We support what manufacturers abandon.
-
-One Mumbai logistics company saved ₹28L this year. Same uptime SLA. Same response time. 70% lower cost.
-
-Your old server has years of life left. Don't replace it. Protect it.
-
-🔗 Link in bio | blog.inframitra.com
-
-#AMCSupport #ITInfrastructure #StartupIndia #RefurbishedServers #InfraMitra`,
-    li:`When an OEM stops supporting your server, you have two options:
-
-Option A: Replace hardware → ₹3,50,000 per server
-Option B: InfraMitra AMC → ₹4,000/device/month
-
-A Mumbai logistics company chose Option B in 2022 when HP discontinued support for their DL360 Gen9 fleet.
-
-Result after 3 years:
-→ 99.97% uptime maintained
-→ ₹28 Lakhs saved vs hardware replacement
-→ Zero unplanned downtime events
-
-End-of-life hardware doesn't mean end-of-productivity.
-
-→ blog.inframitra.com/posts/amc-hp-proliant`,
-    fb:`💡 Did you know your server doesn't need to be replaced when the manufacturer stops support?
-
-InfraMitra's AMC keeps it running — with guaranteed response times, 24/7 monitoring, and on-site visits.
-
-A Mumbai company saved ₹28 Lakhs this way. Same uptime. Zero stress.
-
-👉 blog.inframitra.com/posts/amc-support`,
-    wa:`Hi! 👋 InfraMitra tip of the day:
-
-🛡️ *OEM support ended on your server?*
-Don't replace it — InfraMitra AMC covers it.
-
-✅ Same uptime SLA  ✅ 24/7 support
-✅ From ₹4,000/device/month
-
-📖 blog.inframitra.com/posts/amc-support
-
-Reply STOP to unsubscribe.`
-  },
-  {
-    id:2, status:'pending',
-    title:'Dell R750 vs New: How a Pune Startup Saved ₹52 Lakhs on IT Infrastructure',
-    topic:'cost', audience:'Indian Startups', date:'2025-06-03',
-    excerpt:'A 15-person Pune SaaS company needed 10 production servers. New hardware cost: ₹35 Lakhs. InfraMitra refurbished: ₹14 Lakhs. Full breakdown inside.',
-    blog:`## Dell R750 vs New: The Complete Cost Comparison
-
-Last quarter, a 15-person SaaS startup in Pune came to us with a straightforward ask: 10 production servers, enterprise-grade, in budget.
-
-Their infrastructure budget: ₹15 Lakhs. New hardware quote: ₹35 Lakhs.
-
-Here's how we made it work.
-
-### The Numbers That Matter
-
-| Item | New Hardware | InfraMitra Refurbished |
-|------|-------------|----------------------|
-| 10× Dell R750 | ₹35,00,000 | ₹14,00,000 |
-| 3-year warranty | ₹3,50,000 | Included |
-| Delivery time | 60 days | 48 hours |
-| AMC (optional) | Separate vendor | From ₹4,000/mo |
-| **Total** | **₹38,50,000** | **₹14,00,000** |
-
-**Savings: ₹24,50,000**
-
-### What They Did With ₹24.5 Lakhs
-
-Instead of spending it on servers, they invested in growth:
-- 3 senior engineers hired (6-month runway)
-- Product launch accelerated by 8 weeks
-- Marketing budget doubled for Q3
-
-### The Performance Question
-
-Every refurbished server from InfraMitra goes through a 40-point QA process including a 12-hour burn-in test. Specs are identical to new. Performance is identical. The only difference is the price.`,
-    ig:`💰 New Dell R750: ₹3,50,000
-Refurbished Dell R750: ₹1,40,000
-
-Same processor. Same RAM. Same benchmark scores. 60% cheaper.
-
-A Pune startup bought 10 servers last month. Saved ₹24.5 Lakhs. Spent it on 3 engineers instead.
-
-That's how you scale smart. 💡
-
-🔗 Link in bio | blog.inframitra.com
-
-#CostSavings #StartupIndia #ServerInfrastructure #InfraMitra`,
-    li:`A Pune SaaS startup asked us a simple question:
-
-"Can we get 10 Dell R750 servers for under ₹15 Lakhs?"
-
-Our answer: Yes. Here's the breakdown:
-
-New Dell R750 (×10): ₹35,00,000
-Refurbished Dell R750 (×10): ₹14,00,000
-InfraMitra 3-year warranty: included
-Savings: ₹21,00,000+
-
-What did they do with the savings?
-→ Hired 3 senior backend engineers
-→ Launched their product 8 weeks earlier
-→ Doubled marketing budget for Q3
-
-→ blog.inframitra.com/posts/pune-startup-savings`,
-    fb:`💰 Refurbished vs New servers:
-
-New Dell R750: ₹3,50,000
-Refurbished Dell R750: ₹1,40,000
-Savings: ₹2,10,000 per server 🎉
-
-Same specs. Same performance. 3-year warranty included.
-1,000+ Indian startups already made the switch.
-
-👉 blog.inframitra.com/posts/refurbished-vs-new`,
-    wa:`Hi! 👋 InfraMitra savings alert:
-
-💰 *Dell R750 — Save 60% vs new*
-₹1,40,000 vs ₹3,50,000
-
-Same specs. 3-year warranty. Delivered in 48 hours.
-
-📖 blog.inframitra.com/posts/dell-savings
-
-Reply STOP to unsubscribe.`
-  },
-  {
-    id:3, status:'pending',
-    title:'48-Hour Infrastructure: How a Hyderabad Fintech Beat Their Competitor to Market',
-    topic:'speed', audience:'Indian Startups', date:'2025-06-04',
-    excerpt:'Monday PO signed. Wednesday servers racked and live in production. A Hyderabad fintech launched 7 weeks ahead of their competitor — because their infrastructure arrived in 48 hours.',
-    blog:`## 48-Hour Infrastructure: The Startup Competitive Advantage
-
-Speed wins markets. In 2024, a Hyderabad fintech proved it.
-
-They needed 8 production servers to handle a Series A growth target. Standard procurement: 60-day lead time. InfraMitra: 48 hours.
-
-### The Timeline
-
-- **Monday 10 AM**: PO signed with InfraMitra
-- **Monday 2 PM**: Configuration verified and testing begins
-- **Tuesday 6 AM**: Full 40-point QA complete
-- **Tuesday 11 AM**: Shipped from InfraMitra facility
-- **Wednesday 9 AM**: Delivered, racked, and live in production
-
-Total elapsed time: **47 hours**.
-
-### The Business Impact
-
-Their competitor was still waiting for hardware from the manufacturer.
-
-The fintech launched their new product **7 weeks earlier** than expected.
-
-By the time their competitor went live, the fintech had:
-- 8,000 active users on the platform
-- 3 enterprise clients signed
-- ₹40 Lakhs in revenue booked
-
-### Why Speed Matters More Than You Think
-
-Every day your infrastructure isn't ready is a day your product isn't live. For a startup, that's not just an inconvenience — it's competitive exposure.
-
-InfraMitra's ready-to-ship inventory means you can go from decision to production in 48 hours. No 60-day wait. No planning delays. No competitive disadvantage.`,
-    ig:`⚡ Monday 10 AM: Purchase order signed.
-Wednesday 9 AM: Servers racked and live in production.
-
-That's InfraMitra. 48-hour deployment.
-
-A Hyderabad fintech needed 8 servers fast. New hardware: 60-day lead time. InfraMitra: 48 hours, tested, warranted, delivered.
-
-They launched 7 weeks ahead of their competitor. 🏆
-
-🔗 Link in bio | blog.inframitra.com
-
-#FastDeployment #StartupIndia #48Hours #InfraMitra`,
-    li:`Speed to market matters more than perfection.
-
-A Hyderabad fintech came to us in January with a problem:
-Their infrastructure couldn't handle Series A growth targets.
-They needed 8 production servers. Immediately.
-
-Traditional route: 45-60 day lead time.
-InfraMitra route: 48 hours — door to production.
-
-They launched 7 weeks before their competitor.
-Captured first-mover advantage in their segment.
-
-In 2025, infrastructure speed = business speed.
-
-→ blog.inframitra.com/posts/48-hour-deployment`,
-    fb:`⚡ Order Monday. Go live Wednesday.
-
-InfraMitra delivers tested, warranted servers in 48 hours.
-No 60-day manufacturer lead times. No delays.
-
-A Hyderabad fintech launched 7 weeks ahead of schedule.
-That's competitive advantage.
-
-👉 blog.inframitra.com/posts/fast-deployment`,
-    wa:`Hi! 👋 InfraMitra speed update:
-
-⚡ *48-hour server delivery*
-Order today → live in production by Wednesday.
-
-No 60-day wait. No delays. Tested & warranted.
-
-📖 blog.inframitra.com/posts/48hr-deploy
-
-Reply STOP to unsubscribe.`
-  },
-  {
-    id:4, status:'approved',
-    title:'E-Waste + ESG Certificates: Win Government Tenders in 2025',
-    topic:'sustain', audience:'Indian Startups', date:'2025-06-05',
-    excerpt:'A Delhi contractor won a ₹4 Crore government tender specifically because they had InfraMitra\'s CPCB-certified disposal certificates. Their competitor didn\'t.',
-    blog:`## E-Waste + ESG: The Competitive Advantage You're Overlooking
-
-"We won the ₹4 Crore tender because we had ESG certificates. Our competitor didn't."
-
-That's a quote from one of our Delhi customers after their Q1 tender win. The certificates came from InfraMitra's ITAD service.
-
-### What's Changing in 2025
-
-Government and enterprise procurement processes in India are increasingly requiring proof of responsible IT disposal. The DPDP Act 2023 creates legal obligations around data destruction. CPCB regulations mandate certified e-waste handling.
-
-Companies that can't prove responsible disposal are being disqualified from tenders.
-
-### What InfraMitra ITAD Provides
-
-Every ITAD engagement includes:
-
-1. **NIST 800-88 data destruction** — each storage device wiped to the US federal standard
-2. **Certificate of destruction** — per device, with serial number, legally admissible
-3. **CPCB recycling documentation** — from registered recycling partners
-4. **Carbon offset report** — for your ESG and CSR disclosures
-5. **Full audit trail** — 7-year retention
-
-### The Numbers
-
-This quarter, 8 of our customers won government contracts citing their InfraMitra certificates. Combined tender value: ₹34 Crores.
-
-The ITAD service? From ₹500 per device.`,
-    ig:`🌱 Every refurbished server InfraMitra sells:
-→ Extends hardware life by 3-5 years
-→ Prevents 600kg of CO₂ emissions
-→ Keeps 40kg of e-waste from landfill
-
-This month, our customers won 8 government tenders using InfraMitra ESG certificates. ✅
-
-Sustainable IT isn't just good for the planet. It's good for business. 🌍
-
-🔗 blog.inframitra.com
-
-#Sustainability #ESG #EWaste #InfraMitra #CPCB`,
-    li:`A Delhi government contractor told us something interesting last month:
-
-"We won the ₹4 Crore tender because we had ESG certificates. Our competitor didn't."
-
-Those certificates? From InfraMitra's ITAD service.
-
-In 2025, government and enterprise tenders increasingly require proof of responsible IT disposal. InfraMitra customers are ready.
-
-→ blog.inframitra.com/posts/esg-certificates`,
-    fb:`🌱 Responsible IT disposal isn't just ethical — it's profitable.
-
-8 InfraMitra customers won government contracts this quarter specifically because they had our CPCB-certified disposal certificates. 🏆
-
-From ₹500/device. Certificates included.
-
-👉 blog.inframitra.com/posts/esg`,
-    wa:`Hi! 👋 InfraMitra ESG update:
-
-🌱 *Win govt tenders with ESG proof*
-CPCB-certified disposal + data destruction certificates.
-
-Required for govt IT tenders in 2025.
-Free with every ITAD pickup.
-
-📖 blog.inframitra.com/posts/esg-win
-
-Reply STOP to unsubscribe.`
-  },
-  {
-    id:5, status:'approved',
-    title:'Case Study: 12-Person Delhi Startup Scales to 50,000 Users on Refurbished HP',
-    topic:'case', audience:'Indian Startups', date:'2025-06-06',
-    excerpt:'Infrastructure budget: ₹8 Lakhs. 8 refurbished servers. Gold AMC. 14 months later: 50,000+ concurrent users, 99.96% uptime, zero unplanned downtime.',
-    blog:`## How a 12-Person Startup Served 50,000 Users on a ₹8L Budget
-
-In January 2024, a Delhi-based SaaS startup came to us with a very specific problem: they needed enterprise-grade infrastructure on a seed-stage budget.
-
-Their requirement: 8 production servers to handle a projected 50,000 concurrent users. Their budget: ₹8 Lakhs.
-
-New hardware quote: ₹28 Lakhs. Three and a half times their budget.
-
-### The InfraMitra Solution
-
-**Hardware:**
-- 6× HP ProLiant DL380 Gen10 (refurbished): ₹5,40,000
-- 2× Dell R640 (refurbished, backup): ₹1,80,000
-
-**Support:**
-- Gold AMC (all 8 servers, 24 months): ₹76,800
-
-**Total: ₹7,96,800** — ₹3,200 under budget.
-
-### The Results at 14 Months
-
-- **52,000 peak concurrent users** handled without incident
-- **99.96% uptime** — exceeded their Gold SLA requirement
-- **0 unplanned outages** in 14 months
-- **Every 4-hour response SLA met**, including 3 hardware events
-- **₹20 Lakhs saved** vs new hardware equivalent
-
-### What They Said
-
-"We wouldn't have been able to scale to where we are without InfraMitra. The hardware is solid, the AMC team is responsive, and we spent the savings on engineers who built the features that got us to Series A."
-
-— CTO, Series A SaaS startup, Delhi`,
-    ig:`📊 Case study: 12-person Delhi startup → 50,000 users
-
-Infrastructure budget: ₹8 Lakhs
-Servers needed: 6 production + 2 backup
-
-New hardware: ₹28L (over budget)
-InfraMitra refurbished: ₹7.8L ✅
-
-14 months later:
-→ 50,000+ concurrent users
-→ 99.96% uptime
-→ Zero unplanned downtime
-→ Series A closed 🎉
-
-🔗 Full case study: link in bio
-
-#CaseStudy #StartupIndia #InfraMitra`,
-    li:`12 engineers. ₹8L infra budget. 50,000-user target.
-
-Here's how a Delhi startup made it work:
-
-6× HP ProLiant DL380 Gen10: ₹5,40,000
-2× Dell R640 backup: ₹1,80,000
-Gold AMC (24 months): ₹76,800
-Total: ₹7,96,800
-
-Outcomes at 14 months:
-→ 52,000 peak concurrent users
-→ 99.96% uptime
-→ 0 unplanned outages
-→ ₹20 Lakhs saved vs new
-
-→ blog.inframitra.com/posts/delhi-case`,
-    fb:`📊 Delhi startup. 12 engineers. ₹8L budget.
-
-Needed 8 servers. New hardware: ₹28L (impossible).
-InfraMitra: ₹7.8L — including warranty and AMC.
-
-14 months later: 50,000 users. 99.96% uptime. Zero outages. Series A.
-
-This is what smart infrastructure looks like. 💪
-
-👉 blog.inframitra.com/posts/delhi-case`,
-    wa:`Hi! 👋 InfraMitra case study:
-
-📊 *Delhi startup scaled to 50k users on ₹8L budget*
-8 refurbished servers + Gold AMC
-99.96% uptime over 14 months.
-
-Full story: blog.inframitra.com/posts/delhi-case
-
-Reply STOP to unsubscribe.`
-  },
+var posts = [
+  {id:1,status:'pending',topic:'amc',audience:'Indian Startups',date:'2025-06-02',
+   title:'When OEM Support Ends, InfraMitra Begins',
+   exc:'A Mumbai logistics company avoided Rs 28 Lakhs in hardware replacement by choosing InfraMitra end-of-life AMC. Same 99.9% SLA, zero OEM dependency.',
+   ig:'Shield emoji HP ProLiant OEM support ended 2022. Still running 2025.\n\nInfraMitra AMC keeps it alive.\nMumbai company saved Rs 28L. Same uptime.\n\n#AMCSupport #InfraMitra #StartupIndia',
+   li:'When HP discontinued support for DL360 Gen9, a Mumbai logistics company had two choices:\n\nA) Replace hardware: Rs 28 Lakhs\nB) InfraMitra AMC: Rs 4,000/device/month\n\nThey chose B. Three years later: 99.97% uptime, Rs 28L saved.\n\n-> blog.inframitra.com/posts/amc',
+   fb:'Did you know your server does not need replacement when OEM support ends?\n\nInfraMitra AMC keeps it running with guaranteed SLA.\nMumbai company saved Rs 28 Lakhs.\n\n-> blog.inframitra.com/posts/amc',
+   wa:'Hi! InfraMitra tip:\n\nOEM support ended on your server? Do not replace it.\nInfraMitra AMC covers it from Rs 4,000/device/month.\n\nblog.inframitra.com/posts/amc\nReply STOP to unsubscribe.'},
+  {id:2,status:'pending',topic:'cost',audience:'Indian Startups',date:'2025-06-03',
+   title:'Dell R750 vs New: Pune Startup Saves Rs 52 Lakhs',
+   exc:'15-person Pune SaaS needed 10 production servers. New hardware: Rs 35L. InfraMitra refurbished: Rs 14L. Full breakdown inside.',
+   ig:'New Dell R750: Rs 3,50,000\nRefurbished Dell R750: Rs 1,40,000\n\nSame specs. 60% cheaper.\n\nPune startup bought 10 servers. Saved Rs 24.5L.\nSpent it on 3 engineers instead.\n\n#CostSavings #StartupIndia #InfraMitra',
+   li:'A Pune SaaS startup needed 10 production servers. Budget: Rs 15 Lakhs. New hardware quote: Rs 35 Lakhs.\n\nInfraMitra solution:\n10x Dell R750 refurbished: Rs 14L\n3-year warranty: included\n48-hour delivery: included\n\nSavings: Rs 21 Lakhs\n\n-> blog.inframitra.com',
+   fb:'Refurbished vs New servers:\n\nNew Dell R750: Rs 3,50,000\nInfraMitra: Rs 1,40,000\nSavings: Rs 2,10,000 per server\n\nSame specs. 3-year warranty. 1000+ Indian startups switched.\n\n-> blog.inframitra.com',
+   wa:'Hi! InfraMitra savings:\n\nDell R750 Save 60% vs new\nRs 1,40,000 vs Rs 3,50,000\nSame specs. 3yr warranty. 48hr delivery.\n\nblog.inframitra.com\nReply STOP to unsubscribe.'},
+  {id:3,status:'pending',topic:'speed',audience:'Indian Startups',date:'2025-06-04',
+   title:'48-Hour Deployment: Hyderabad Fintech Beats Competitor',
+   exc:'Monday PO signed. Wednesday servers live in production. Hyderabad fintech launched 7 weeks ahead of competitor because infrastructure arrived in 48 hours.',
+   ig:'Monday 10 AM: PO signed.\nWednesday 9 AM: Servers live in production.\n\nInfraMitra 48-hour deployment.\n\nHyderabad fintech launched 7 weeks ahead of competitor.\n\n#FastDeployment #StartupIndia #InfraMitra',
+   li:'Speed to market matters most.\n\nHyderabad fintech needed 8 servers immediately for Series A.\nNew hardware: 60-day lead time.\nInfraMitra: 48 hours door to production.\n\nThey launched 7 weeks before their competitor.\n\n-> blog.inframitra.com',
+   fb:'Order Monday. Go live Wednesday.\n\nInfraMitra delivers tested warranted servers in 48 hours.\nHyderabad fintech launched 7 weeks ahead of schedule.\n\n-> blog.inframitra.com',
+   wa:'Hi! InfraMitra speed:\n\n48-hour server delivery\nOrder today, live in production Wednesday.\nNo 60-day wait.\n\nblog.inframitra.com\nReply STOP to unsubscribe.'},
+  {id:4,status:'approved',topic:'sustain',audience:'Indian Startups',date:'2025-06-05',
+   title:'E-Waste + ESG Certificates: Win Government Tenders in 2025',
+   exc:'Delhi contractor won Rs 4 Crore government tender because they had InfraMitra CPCB-certified disposal certificates. Competitor did not.',
+   ig:'Every refurbished server extends hardware life 3-5 years, prevents 600kg CO2.\n\nThis month customers won 8 government tenders using InfraMitra ESG certificates.\n\nSustainable IT is good for business.\n\n#ESG #EWaste #InfraMitra',
+   li:'A Delhi contractor won a Rs 4 Crore tender because they had ESG certificates. Competitor did not.\n\nCertificates came from InfraMitra ITAD service.\n\nIn 2025, government tenders require proof of responsible IT disposal.\n\n-> blog.inframitra.com',
+   fb:'Responsible IT disposal is profitable.\n\n8 InfraMitra customers won government contracts this quarter with CPCB-certified disposal certificates.\n\n-> blog.inframitra.com',
+   wa:'Hi! InfraMitra ESG:\n\nWin govt tenders with ESG proof.\nCPCB certificates free with every ITAD pickup.\n\nblog.inframitra.com\nReply STOP to unsubscribe.'},
+  {id:5,status:'approved',topic:'case',audience:'Indian Startups',date:'2025-06-06',
+   title:'Case Study: 12-Person Delhi Startup Scales to 50,000 Users',
+   exc:'Infrastructure budget Rs 8 Lakhs. 8 refurbished servers. Gold AMC. 14 months later: 50,000+ concurrent users, 99.96% uptime, zero unplanned downtime.',
+   ig:'Case study: 12-person Delhi startup to 50,000 users.\n\nBudget: Rs 8L. New hardware: Rs 28L.\nInfraMitra: Rs 7.8L including warranty and AMC.\n\n14 months: 50k users, 99.96% uptime, zero outages.\n\n#CaseStudy #StartupIndia #InfraMitra',
+   li:'12 engineers. Rs 8L budget. 50,000-user target.\n\nHardware:\n6x HP ProLiant DL380: Rs 5.4L\n2x Dell R640 backup: Rs 1.8L\nGold AMC 24 months: Rs 76,800\nTotal: Rs 7.96L\n\n14 months: 52,000 peak users, 99.96% uptime, zero outages.\n\n-> blog.inframitra.com',
+   fb:'Delhi startup. 12 engineers. Rs 8L budget.\n\nNeeded 8 servers. New hardware: Rs 28L impossible.\nInfraMitra: Rs 7.8L including warranty and AMC.\n\n14 months: 50k users, 99.96% uptime, Series A closed.\n\n-> blog.inframitra.com',
+   wa:'Hi! InfraMitra case study:\n\nDelhi startup scaled to 50k users on Rs 8L budget.\n8 refurbished servers plus Gold AMC.\n99.96% uptime 14 months.\n\nblog.inframitra.com\nReply STOP to unsubscribe.'}
 ];
 
-const publishedData = [
+var pubData = [
   {title:'AMC Tiers Explained: Bronze to Platinum',topic:'amc',date:'2025-05-30',views:892,leads:12},
   {title:'Cloud vs InfraMitra: 3-Year Cost Comparison',topic:'cost',date:'2025-05-29',views:1204,leads:18},
   {title:'ITAD Guide: What Happens to Your Old Server',topic:'sustain',date:'2025-05-28',views:567,leads:7},
-  {title:'Bangalore Fintech Case Study: ₹13L Saved',topic:'case',date:'2025-05-27',views:1891,leads:24},
+  {title:'Bangalore Fintech Case Study: Rs 13L Saved',topic:'case',date:'2025-05-27',views:1891,leads:24}
 ];
 
-const logEntries = [
-  {time:'Today 7:02 AM', icon:'✨', text:'AI generated 3 new posts (AMC, Cost, Speed)'},
-  {time:'Today 7:03 AM', icon:'📧', text:'Review notification sent to admin@inframitra.com'},
-  {time:'Yesterday 2:15 PM', icon:'✅', text:'Post "E-Waste + ESG Certificates" approved by admin'},
-  {time:'Yesterday 2:16 PM', icon:'🚀', text:'Post published to GitHub: cybernetixhub/Inframitra-blog'},
-  {time:'Yesterday 2:17 PM', icon:'🌐', text:'blog.inframitra.com updated with new post'},
-  {time:'May 29 9:00 AM', icon:'✨', text:'AI generated 2 new posts (Case Study, AMC)'},
-  {time:'May 29 9:01 AM', icon:'📧', text:'WhatsApp approval link sent to reviewer'},
-  {time:'May 28 3:30 PM', icon:'✅', text:'Post "Delhi Case Study" approved'},
-  {time:'May 28 3:31 PM', icon:'🚀', text:'Post published to GitHub successfully'},
+var logs = [
+  {time:'Today 7:02 AM',icon:'✨',text:'AI generated 3 new posts (AMC, Cost, Speed)'},
+  {time:'Today 7:03 AM',icon:'📧',text:'Review notification sent to admin@inframitra.com'},
+  {time:'Yesterday 2:15 PM',icon:'✅',text:'Post "E-Waste + ESG Certificates" approved by admin'},
+  {time:'Yesterday 2:16 PM',icon:'🚀',text:'Post published to GitHub: cybernetixhub/Inframitra-blog'},
+  {time:'Yesterday 2:17 PM',icon:'🌐',text:'blog.inframitra.com updated with new post'},
+  {time:'May 29 9:00 AM',icon:'✨',text:'AI generated 2 new posts (Case Study, AMC)'},
+  {time:'May 28 3:30 PM',icon:'✅',text:'Post "Delhi Case Study" approved'},
+  {time:'May 28 3:31 PM',icon:'🚀',text:'Post published to GitHub successfully'}
 ];
 
-let currentGenerated = null;
-let activeSection = 'dashboard';
+var genPost_data = null;
+var curSection = 'dashboard';
 
 // ── NAVIGATION ────────────────────────────────────────────────────────────────
-function showSection(id, el) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById('section-'+id).classList.add('active');
-  if (el) el.classList.add('active');
-  activeSection = id;
-  renderSection(id);
+function nav(id, el) {
+  document.querySelectorAll('.sec').forEach(function(s){ s.classList.remove('on'); });
+  document.querySelectorAll('.nav-i').forEach(function(n){ n.classList.remove('on'); });
+  document.getElementById('s-'+id).classList.add('on');
+  if (el) el.classList.add('on');
+  curSection = id;
+  renderSec(id);
 }
 
-function renderSection(id) {
-  if (id === 'dashboard') renderDashboard();
+function renderSec(id) {
+  if (id === 'dashboard') renderDash();
   else if (id === 'review') renderReview();
   else if (id === 'approved') renderApproved();
-  else if (id === 'published') renderPublished();
-  else if (id === 'calendar') renderCalendar();
+  else if (id === 'published') renderPub();
+  else if (id === 'calendar') renderCal();
   else if (id === 'logs') renderLogs();
 }
 
-// ── RENDER HELPERS ─────────────────────────────────────────────────────────────
-function topicTag(topic) {
-  const map = {
-    amc: ['tag-amc','🛡️ AMC'],
-    cost: ['tag-cost','💰 Cost'],
-    speed: ['tag-speed','⚡ Speed'],
-    sustain: ['tag-sustain','🌱 E-Waste'],
-    case: ['tag-case','📊 Case Study']
-  };
-  const [cls, label] = map[topic] || ['tag-amc', topic];
-  return `<span class="tag ${cls}">${label}</span>`;
+// ── HELPERS ────────────────────────────────────────────────────────────────────
+function tTag(topic) {
+  var m = {amc:'t-amc',cost:'t-cost',speed:'t-speed',sustain:'t-sus',case:'t-case'};
+  var l = {amc:'🛡 AMC',cost:'💰 Cost',speed:'⚡ Speed',sustain:'🌱 E-Waste',case:'📊 Case'};
+  return '<span class="tag '+(m[topic]||'t-amc')+'">'+(l[topic]||topic)+'</span>';
 }
 
-function statusBadge(status) {
-  const map = {
-    pending: ['s-pending','⏳ Pending Review'],
-    approved: ['s-approved','✅ Approved'],
-    published: ['s-published','🌐 Published'],
-    rejected: ['s-rejected','✗ Changes Requested'],
-    generating: ['s-generating','⚡ Generating...']
-  };
-  const [cls, label] = map[status] || ['s-pending', status];
-  return `<span class="status-badge ${cls}">${label}</span>`;
+function sBadge(status) {
+  var m = {pending:'s-pend',approved:'s-app',published:'s-pub',rejected:'s-rej'};
+  var l = {pending:'⏳ Pending',approved:'✅ Approved',published:'🌐 Published',rejected:'✗ Changes'};
+  return '<span class="sbadge '+(m[status]||'s-pend')+'">'+(l[status]||status)+'</span>';
 }
 
-function renderPostItem(post, actions) {
-  return `
-  <div class="post-item" id="post-${post.id}">
-    <div class="post-item-header" onclick="toggleExpand(${post.id})">
-      <div>
-        <div class="post-title">${post.title}</div>
-        <div class="post-excerpt">${post.excerpt}</div>
-        <div class="post-meta" style="margin-top:8px">
-          ${topicTag(post.topic)}
-          <span style="font-size:11px;color:var(--ink3)">📅 ${post.date}</span>
-          <span style="font-size:11px;color:var(--ink3)">👥 ${post.audience}</span>
-        </div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
-        ${statusBadge(post.status)}
-        <span style="font-size:11px;color:var(--ink3)">▼ expand</span>
-      </div>
-    </div>
-    <div class="post-expand" id="expand-${post.id}">
-      <div style="background:#f8f9fa;border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:10px">
-        <div style="font-size:11px;font-weight:600;color:var(--ink3);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px">📝 Blog Content Preview</div>
-        <div style="font-size:12px;color:var(--ink2);line-height:1.7;max-height:200px;overflow-y:auto;white-space:pre-wrap">${post.blog.substring(0,600)}${post.blog.length>600?'...':''}</div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
-        <div class="platform-preview">
-          <span class="platform-label lbl-ig">📷 Instagram</span>
-          <div class="platform-text">${post.ig}</div>
-        </div>
-        <div class="platform-preview">
-          <span class="platform-label lbl-li">💼 LinkedIn</span>
-          <div class="platform-text">${post.li}</div>
-        </div>
-        <div class="platform-preview">
-          <span class="platform-label lbl-fb">📘 Facebook</span>
-          <div class="platform-text">${post.fb}</div>
-        </div>
-        <div class="platform-preview">
-          <span class="platform-label lbl-wa">💬 WhatsApp</span>
-          <div class="platform-text">${post.wa}</div>
-        </div>
-      </div>
-      <div class="post-actions">${actions}</div>
-    </div>
-  </div>`;
+function makePost(post, actions) {
+  return '<div class="pi" id="pi-'+post.id+'">'
+    +'<div class="pi-hdr" onclick="toggleExp('+post.id+')">'
+    +'<div>'
+    +'<div class="pi-title">'+post.title+'</div>'
+    +'<div class="pi-exc">'+post.exc+'</div>'
+    +'<div class="pi-meta" style="margin-top:7px">'
+    +tTag(post.topic)
+    +'<span style="font-size:11px;color:#717169">📅 '+post.date+'</span>'
+    +'<span style="font-size:11px;color:#717169">👥 '+post.audience+'</span>'
+    +'</div>'
+    +'</div>'
+    +'<div style="display:flex;flex-direction:column;align-items:flex-end;gap:7px">'
+    +sBadge(post.status)
+    +'<span style="font-size:11px;color:#717169">▼ expand</span>'
+    +'</div>'
+    +'</div>'
+    +'<div class="pi-exp" id="exp-'+post.id+'">'
+    +'<div class="plat-grid">'
+    +'<div class="plat"><span class="plat-lbl l-ig">📷 Instagram</span><div class="plat-txt">'+escHtml(post.ig)+'</div></div>'
+    +'<div class="plat"><span class="plat-lbl l-li">💼 LinkedIn</span><div class="plat-txt">'+escHtml(post.li)+'</div></div>'
+    +'<div class="plat"><span class="plat-lbl l-fb">📘 Facebook</span><div class="plat-txt">'+escHtml(post.fb)+'</div></div>'
+    +'<div class="plat"><span class="plat-lbl l-wa">💬 WhatsApp</span><div class="plat-txt">'+escHtml(post.wa)+'</div></div>'
+    +'</div>'
+    +'<div class="pi-actions">'+actions+'</div>'
+    +'</div>'
+    +'</div>';
 }
 
-function toggleExpand(id) {
-  const el = document.getElementById('expand-'+id);
+function escHtml(s) {
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function toggleExp(id) {
+  var el = document.getElementById('exp-'+id);
   el.classList.toggle('open');
 }
 
 // ── DASHBOARD ──────────────────────────────────────────────────────────────────
-function renderDashboard() {
-  const pending = posts.filter(p => p.status === 'pending');
-  const queueEl = document.getElementById('dashboard-queue');
-  if (pending.length === 0) {
-    queueEl.innerHTML = `<div class="empty"><div class="empty-icon">🎉</div><div class="empty-title">All caught up!</div><div class="empty-sub">No posts waiting for review right now.</div></div>`;
+function renderDash() {
+  var pend = posts.filter(function(p){ return p.status === 'pending'; });
+  var qel = document.getElementById('db-queue');
+  if (pend.length === 0) {
+    qel.innerHTML = '<div class="empty"><div class="empty-icon">🎉</div><div class="empty-ttl">All caught up!</div><div class="empty-sub">No posts waiting for review.</div></div>';
   } else {
-    queueEl.innerHTML = pending.slice(0,2).map(p => renderPostItem(p,
-      `<button class="btn btn-approve btn-sm" onclick="approvePost(${p.id})">✅ Approve & Schedule</button>
-       <button class="btn btn-reject btn-sm" onclick="rejectPost(${p.id})">↩ Request Changes</button>
-       <span style="font-size:11px;color:var(--ink3);margin-left:auto">Publishes: ${p.date}</span>`
-    )).join('');
+    qel.innerHTML = pend.slice(0,2).map(function(p){
+      return makePost(p,
+        '<button class="btn btn-ok btn-sm" onclick="approvePost('+p.id+')">✅ Approve</button>'
+        +'<button class="btn btn-no btn-sm" onclick="rejectPost('+p.id+')">↩ Changes</button>'
+        +'<span style="font-size:11px;color:#717169;margin-left:auto">Publishes: '+p.date+'</span>');
+    }).join('');
   }
-
-  const pubEl = document.getElementById('dashboard-published');
-  pubEl.innerHTML = `<div style="overflow-x:auto"><table style="width:100%;font-size:13px;border-collapse:collapse">
-    <thead><tr style="border-bottom:1px solid var(--border)">
-      <th style="text-align:left;padding:8px 12px;color:var(--ink3);font-weight:500">Title</th>
-      <th style="text-align:left;padding:8px 12px;color:var(--ink3);font-weight:500">Topic</th>
-      <th style="text-align:left;padding:8px 12px;color:var(--ink3);font-weight:500">Published</th>
-      <th style="text-align:right;padding:8px 12px;color:var(--ink3);font-weight:500">Views</th>
-      <th style="text-align:right;padding:8px 12px;color:var(--ink3);font-weight:500">Leads</th>
-    </tr></thead>
-    <tbody>${publishedData.map(p=>`<tr style="border-bottom:1px solid var(--border)">
-      <td style="padding:10px 12px;color:var(--ink);font-weight:500">${p.title}</td>
-      <td style="padding:10px 12px">${topicTag(p.topic)}</td>
-      <td style="padding:10px 12px;color:var(--ink3)">${p.date}</td>
-      <td style="padding:10px 12px;text-align:right;color:var(--ink)">${p.views.toLocaleString()}</td>
-      <td style="padding:10px 12px;text-align:right;color:#0a5c42;font-weight:500">${p.leads}</td>
-    </tr>`).join('')}</tbody>
-  </table></div>`;
-
-  updateBadges();
+  var pel = document.getElementById('db-pub');
+  var rows = pubData.map(function(p){
+    return '<tr style="border-bottom:1px solid #e2e0d8">'
+      +'<td style="padding:9px 11px;font-weight:500">'+p.title+'</td>'
+      +'<td style="padding:9px 11px">'+tTag(p.topic)+'</td>'
+      +'<td style="padding:9px 11px;color:#717169">'+p.date+'</td>'
+      +'<td style="padding:9px 11px;text-align:right">'+p.views.toLocaleString()+'</td>'
+      +'<td style="padding:9px 11px;text-align:right;color:#0a5c42;font-weight:500">'+p.leads+'</td>'
+      +'</tr>';
+  }).join('');
+  pel.innerHTML = '<div style="overflow-x:auto"><table style="width:100%;font-size:13px;border-collapse:collapse">'
+    +'<thead><tr style="border-bottom:2px solid #e2e0d8">'
+    +'<th style="text-align:left;padding:8px 11px;font-weight:500;color:#717169">Title</th>'
+    +'<th style="text-align:left;padding:8px 11px;font-weight:500;color:#717169">Topic</th>'
+    +'<th style="text-align:left;padding:8px 11px;font-weight:500;color:#717169">Published</th>'
+    +'<th style="text-align:right;padding:8px 11px;font-weight:500;color:#717169">Views</th>'
+    +'<th style="text-align:right;padding:8px 11px;font-weight:500;color:#717169">Leads</th>'
+    +'</tr></thead><tbody>'+rows+'</tbody></table></div>';
+  updBadges();
 }
 
 // ── REVIEW ─────────────────────────────────────────────────────────────────────
 function renderReview() {
-  const pending = posts.filter(p => p.status === 'pending');
-  const el = document.getElementById('review-list');
-  document.getElementById('review-count-label').textContent = `(${pending.length} posts)`;
-  if (pending.length === 0) {
-    el.innerHTML = `<div class="empty"><div class="empty-icon">✅</div><div class="empty-title">Nothing to review!</div><div class="empty-sub">All posts have been processed. New ones will appear when the AI generates them.</div></div>`;
+  var pend = posts.filter(function(p){ return p.status === 'pending'; });
+  document.getElementById('rev-ct').textContent = '('+pend.length+' posts)';
+  var el = document.getElementById('rev-list');
+  if (pend.length === 0) {
+    el.innerHTML = '<div class="empty"><div class="empty-icon">✅</div><div class="empty-ttl">Nothing to review!</div><div class="empty-sub">New posts appear here after AI generation.</div></div>';
     return;
   }
-  el.innerHTML = pending.map(p => renderPostItem(p,
-    `<button class="btn btn-approve btn-sm" onclick="approvePost(${p.id})">✅ Approve & Schedule</button>
-     <button class="btn btn-reject btn-sm" onclick="rejectPost(${p.id})">↩ Request Changes</button>
-     <button class="btn btn-edit btn-sm" onclick="editPost(${p.id})">✏️ Edit</button>
-     <span style="font-size:11px;color:var(--ink3);margin-left:auto">Target: ${p.date}</span>`
-  )).join('');
+  el.innerHTML = pend.map(function(p){
+    return makePost(p,
+      '<button class="btn btn-ok btn-sm" onclick="approvePost('+p.id+')">✅ Approve and Schedule</button>'
+      +'<button class="btn btn-no btn-sm" onclick="rejectPost('+p.id+')">↩ Request Changes</button>'
+      +'<button class="btn btn-ed btn-sm" onclick="toastMsg(\'Edit mode coming soon\',\'ok\')">✏️ Edit</button>'
+      +'<span style="font-size:11px;color:#717169;margin-left:auto">Target: '+p.date+'</span>');
+  }).join('');
 }
 
 // ── APPROVED ───────────────────────────────────────────────────────────────────
 function renderApproved() {
-  const approved = posts.filter(p => p.status === 'approved');
-  const el = document.getElementById('approved-list');
-  if (approved.length === 0) {
-    el.innerHTML = `<div class="empty"><div class="empty-icon">📭</div><div class="empty-title">No approved posts</div><div class="empty-sub">Approved posts will appear here, ready to publish to GitHub.</div></div>`;
+  var app = posts.filter(function(p){ return p.status === 'approved'; });
+  var el = document.getElementById('app-list');
+  if (app.length === 0) {
+    el.innerHTML = '<div class="empty"><div class="empty-icon">📭</div><div class="empty-ttl">No approved posts</div><div class="empty-sub">Approved posts appear here ready to publish.</div></div>';
     return;
   }
-  el.innerHTML = approved.map(p => renderPostItem(p,
-    `<button class="btn btn-publish btn-sm" onclick="publishPost(${p.id})">🚀 Publish to GitHub Now</button>
-     <button class="btn btn-edit btn-sm" onclick="editPost(${p.id})">✏️ Edit</button>
-     <button class="btn btn-reject btn-sm" onclick="rejectPost(${p.id})">↩ Send Back</button>
-     <span style="font-size:11px;color:var(--ink3);margin-left:auto">Will publish: ${p.date}</span>`
-  )).join('');
+  el.innerHTML = app.map(function(p){
+    return makePost(p,
+      '<button class="btn btn-pub btn-sm" onclick="publishPost('+p.id+')">🚀 Publish to GitHub</button>'
+      +'<button class="btn btn-ed btn-sm" onclick="toastMsg(\'Edit mode coming soon\',\'ok\')">✏️ Edit</button>'
+      +'<button class="btn btn-no btn-sm" onclick="rejectPost('+p.id+')">↩ Send Back</button>'
+      +'<span style="font-size:11px;color:#717169;margin-left:auto">Scheduled: '+p.date+'</span>');
+  }).join('');
 }
 
 // ── PUBLISHED ──────────────────────────────────────────────────────────────────
-function renderPublished() {
-  const el = document.getElementById('published-list');
-  if (publishedData.length === 0) {
-    el.innerHTML = `<div class="empty"><div class="empty-icon">🌐</div><div class="empty-title">No published posts yet</div></div>`;
-    return;
-  }
-  el.innerHTML = `<div class="card"><div class="card-body"><div style="overflow-x:auto">
-  <table style="width:100%;font-size:13px;border-collapse:collapse">
-    <thead><tr style="border-bottom:2px solid var(--border)">
-      <th style="text-align:left;padding:10px 12px;font-weight:500;color:var(--ink3)">Title</th>
-      <th style="text-align:left;padding:10px 12px;font-weight:500;color:var(--ink3)">Topic</th>
-      <th style="text-align:left;padding:10px 12px;font-weight:500;color:var(--ink3)">Date</th>
-      <th style="text-align:right;padding:10px 12px;font-weight:500;color:var(--ink3)">Views</th>
-      <th style="text-align:right;padding:10px 12px;font-weight:500;color:var(--ink3)">Leads</th>
-      <th style="text-align:right;padding:10px 12px;font-weight:500;color:var(--ink3)">Link</th>
-    </tr></thead>
-    <tbody>${publishedData.map(p=>`<tr style="border-bottom:1px solid var(--border)">
-      <td style="padding:10px 12px;color:var(--ink);font-weight:500">${p.title}</td>
-      <td style="padding:10px 12px">${topicTag(p.topic)}</td>
-      <td style="padding:10px 12px;color:var(--ink3)">${p.date}</td>
-      <td style="padding:10px 12px;text-align:right;font-weight:500">${p.views.toLocaleString()}</td>
-      <td style="padding:10px 12px;text-align:right;color:#0a5c42;font-weight:500">${p.leads}</td>
-      <td style="padding:10px 12px;text-align:right"><a href="https://blog.inframitra.com" target="_blank" style="color:#38BDF8;font-size:12px">View ↗</a></td>
-    </tr>`).join('')}</tbody>
-  </table></div></div></div>`;
+function renderPub() {
+  var el = document.getElementById('pub-list');
+  var rows = pubData.map(function(p){
+    return '<tr style="border-bottom:1px solid #e2e0d8">'
+      +'<td style="padding:10px 11px;font-weight:500">'+p.title+'</td>'
+      +'<td style="padding:10px 11px">'+tTag(p.topic)+'</td>'
+      +'<td style="padding:10px 11px;color:#717169">'+p.date+'</td>'
+      +'<td style="padding:10px 11px;text-align:right;font-weight:500">'+p.views.toLocaleString()+'</td>'
+      +'<td style="padding:10px 11px;text-align:right;color:#0a5c42;font-weight:500">'+p.leads+'</td>'
+      +'<td style="padding:10px 11px;text-align:right"><a href="https://blog.inframitra.com" target="_blank" style="color:#38BDF8;font-size:12px">View</a></td>'
+      +'</tr>';
+  }).join('');
+  el.innerHTML = '<div class="card"><div class="card-body"><div style="overflow-x:auto">'
+    +'<table style="width:100%;font-size:13px;border-collapse:collapse">'
+    +'<thead><tr style="border-bottom:2px solid #e2e0d8">'
+    +'<th style="text-align:left;padding:9px 11px;font-weight:500;color:#717169">Title</th>'
+    +'<th style="text-align:left;padding:9px 11px;font-weight:500;color:#717169">Topic</th>'
+    +'<th style="text-align:left;padding:9px 11px;font-weight:500;color:#717169">Date</th>'
+    +'<th style="text-align:right;padding:9px 11px;font-weight:500;color:#717169">Views</th>'
+    +'<th style="text-align:right;padding:9px 11px;font-weight:500;color:#717169">Leads</th>'
+    +'<th style="text-align:right;padding:9px 11px;font-weight:500;color:#717169">Link</th>'
+    +'</tr></thead><tbody>'+rows+'</tbody></table></div></div></div>';
 }
 
 // ── CALENDAR ────────────────────────────────────────────────────────────────────
-function renderCalendar() {
-  const grid = document.getElementById('calendar-grid');
-  const calPosts = [
-    {day:2,topic:'amc',label:'AMC: OEM ends → InfraMitra'},
-    {day:3,topic:'cost',label:'Cost: Dell R750 savings'},
-    {day:4,topic:'speed',label:'Speed: 48hr deploy'},
-    {day:5,topic:'sustain',label:'ESG: CPCB certificates'},
-    {day:6,topic:'case',label:'Case: Delhi startup 50k users'},
-    {day:9,topic:'amc',label:'AMC: Cisco UCS edtech'},
-    {day:10,topic:'cost',label:'Cost: ROI calculator'},
-    {day:11,topic:'speed',label:'Speed: QA process'},
-    {day:12,topic:'sustain',label:'ESG: ITAD guide'},
-    {day:13,topic:'case',label:'Case: Bangalore fintech'},
-    {day:16,topic:'amc',label:'AMC: Tiers explained'},
-    {day:17,topic:'cost',label:'Cost: Hidden costs'},
-    {day:18,topic:'speed',label:'Speed: Emergency deploy'},
-    {day:19,topic:'sustain',label:'ESG: Buyback value'},
-    {day:20,topic:'case',label:'Case: Jaipur edtech'},
+function renderCal() {
+  var calPosts = [
+    {d:2,t:'amc',l:'AMC: OEM ends'},
+    {d:3,t:'cost',l:'Cost: Dell R750'},
+    {d:4,t:'speed',l:'Speed: 48hr'},
+    {d:5,t:'sustain',l:'ESG: CPCB certs'},
+    {d:6,t:'case',l:'Case: Delhi 50k'},
+    {d:9,t:'amc',l:'AMC: Cisco UCS'},
+    {d:10,t:'cost',l:'Cost: ROI calc'},
+    {d:11,t:'speed',l:'Speed: QA process'},
+    {d:12,t:'sustain',l:'ESG: ITAD guide'},
+    {d:13,t:'case',l:'Case: Blr fintech'},
+    {d:16,t:'amc',l:'AMC: Tiers'},
+    {d:17,t:'cost',l:'Cost: Hidden costs'},
+    {d:18,t:'speed',l:'Speed: Emergency'},
+    {d:19,t:'sustain',l:'ESG: Buyback'},
+    {d:20,t:'case',l:'Case: Jaipur ed'}
   ];
-  let html = '';
-  // June 2025 starts on Sunday → 1 empty day before (Mon=0)
-  html += `<div class="cal-day" style="opacity:.3"><div class="cal-day-num">—</div></div>`;
-  for (let d = 1; d <= 30; d++) {
-    const dayPosts = calPosts.filter(p => p.day === d);
-    html += `<div class="cal-day">
-      <div class="cal-day-num" style="color:${d<=6?'#0a5c42':'var(--ink3)};font-weight:${d<=6?'600':'500'}">${d}</div>
-      ${dayPosts.map(p=>`<div class="cal-post p-${p.topic}" title="${p.label}">${p.label}</div>`).join('')}
-    </div>`;
-    if (d === 29) { // fill last day of month  
-      html += `<div class="cal-day" style="opacity:.3"><div class="cal-day-num">—</div></div>`;
-    }
+  var html = '<div class="cal-day" style="opacity:.3"><div class="cal-num">-</div></div>';
+  for (var d = 1; d <= 30; d++) {
+    var dp = calPosts.filter(function(p){ return p.d === d; });
+    html += '<div class="cal-day">'
+      +'<div class="cal-num" style="color:'+(d<=6?'#0a5c42':'#717169')+';font-weight:'+(d<=6?600:500)+'">'+d+'</div>'
+      +dp.map(function(p){ return '<div class="cal-post cp-'+p.t+'">'+p.l+'</div>'; }).join('')
+      +'</div>';
+    if (d === 29) html += '<div class="cal-day" style="opacity:.3"><div class="cal-num">-</div></div>';
   }
-  grid.innerHTML = html;
+  document.getElementById('cal-grid').innerHTML = html;
 }
 
 // ── LOGS ───────────────────────────────────────────────────────────────────────
 function renderLogs() {
-  const el = document.getElementById('activity-log');
-  el.innerHTML = `<div style="display:flex;flex-direction:column;gap:0">
-    ${logEntries.map(e=>`<div style="display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)">
-      <span style="font-size:18px;flex-shrink:0">${e.icon}</span>
-      <div>
-        <div style="font-size:13px;color:var(--ink)">${e.text}</div>
-        <div style="font-size:11px;color:var(--ink3);margin-top:2px">${e.time}</div>
-      </div>
-    </div>`).join('')}
-  </div>`;
+  var html = '<div style="display:flex;flex-direction:column">'
+    +logs.map(function(e){
+      return '<div style="display:flex;align-items:flex-start;gap:11px;padding:9px 0;border-bottom:1px solid #e2e0d8">'
+        +'<span style="font-size:17px;flex-shrink:0">'+e.icon+'</span>'
+        +'<div>'
+        +'<div style="font-size:13px;color:#1a1a18">'+e.text+'</div>'
+        +'<div style="font-size:11px;color:#717169;margin-top:2px">'+e.time+'</div>'
+        +'</div></div>';
+    }).join('')
+    +'</div>';
+  document.getElementById('log-list').innerHTML = html;
 }
 
 // ── ACTIONS ───────────────────────────────────────────────────────────────────
 function approvePost(id) {
-  const post = posts.find(p => p.id === id);
+  var post = posts.find(function(p){ return p.id === id; });
   if (!post) return;
   post.status = 'approved';
-  updateBadges();
-  refreshCurrentSection();
-  toast(`✅ "${post.title.substring(0,40)}..." approved & scheduled`, 'success');
-  addLog('✅', `Post approved: "${post.title.substring(0,50)}..."`);
+  updBadges(); refresh();
+  toastMsg('✅ "'+post.title.substring(0,35)+'..." approved and scheduled!', 'ok');
+  addLog('✅', 'Post approved: "'+post.title.substring(0,50)+'"');
 }
 
 function rejectPost(id) {
-  const post = posts.find(p => p.id === id);
+  var post = posts.find(function(p){ return p.id === id; });
   if (!post) return;
   post.status = 'rejected';
-  updateBadges();
-  refreshCurrentSection();
-  toast(`↩ Post sent back for changes`, 'success');
-  addLog('↩', `Changes requested: "${post.title.substring(0,50)}..."`);
-}
-
-function editPost(id) {
-  toast('✏️ Edit mode — (Full editor would open here)', 'success');
+  updBadges(); refresh();
+  toastMsg('↩ Post sent back for changes', 'ok');
+  addLog('↩', 'Changes requested for: "'+post.title.substring(0,50)+'"');
 }
 
 function publishPost(id) {
-  const post = posts.find(p => p.id === id);
+  var post = posts.find(function(p){ return p.id === id; });
   if (!post) return;
   post.status = 'published';
-  publishedData.unshift({
-    title: post.title,
-    topic: post.topic,
-    date: new Date().toISOString().slice(0,10),
-    views: 0,
-    leads: 0
-  });
-  updateBadges();
-  refreshCurrentSection();
-  toast('🚀 Published to GitHub! blog.inframitra.com updating...', 'success');
-  addLog('🚀', `Published to GitHub: "${post.title.substring(0,50)}..."`);
+  pubData.unshift({title:post.title,topic:post.topic,date:new Date().toISOString().slice(0,10),views:0,leads:0});
+  updBadges(); refresh();
+  toastMsg('🚀 Published to GitHub! blog.inframitra.com updating...', 'ok');
+  addLog('🚀', 'Published to GitHub: "'+post.title.substring(0,50)+'"');
 }
 
 function approveAll() {
-  posts.filter(p => p.status === 'pending').forEach(p => p.status = 'approved');
-  updateBadges();
-  renderReview();
-  toast('✅ All posts approved and scheduled!', 'success');
+  posts.filter(function(p){ return p.status==='pending'; }).forEach(function(p){ p.status='approved'; });
+  updBadges(); renderReview();
+  toastMsg('✅ All posts approved!', 'ok');
   addLog('✅', 'All pending posts approved in bulk');
 }
 
 function publishAll() {
-  const approved = posts.filter(p => p.status === 'approved');
-  approved.forEach(p => {
-    p.status = 'published';
-    publishedData.unshift({title:p.title,topic:p.topic,date:new Date().toISOString().slice(0,10),views:0,leads:0});
+  var app = posts.filter(function(p){ return p.status==='approved'; });
+  app.forEach(function(p){
+    p.status='published';
+    pubData.unshift({title:p.title,topic:p.topic,date:new Date().toISOString().slice(0,10),views:0,leads:0});
   });
-  updateBadges();
-  renderApproved();
-  toast(`🚀 ${approved.length} posts published to GitHub!`, 'success');
-  addLog('🚀', `Bulk published ${approved.length} posts to GitHub`);
+  updBadges(); renderApproved();
+  toastMsg('🚀 '+app.length+' posts published to GitHub!', 'ok');
+  addLog('🚀', 'Bulk published '+app.length+' posts');
 }
 
-// ── AI GENERATION (Demo) ────────────────────────────────────────────────────────
-function generatePost() {
-  const topic = document.getElementById('gen-topic').value;
-  const audience = document.getElementById('gen-audience').value;
-  const angle = document.getElementById('gen-angle').value;
-  const date = document.getElementById('gen-date').value || new Date().toISOString().slice(0,10);
-
-  const btn = document.getElementById('gen-btn');
-  const status = document.getElementById('gen-status');
+// ── GENERATE ───────────────────────────────────────────────────────────────────
+function genPost() {
+  var topic = document.getElementById('g-topic').value;
+  var audience = document.getElementById('g-audience').value;
+  var angle = document.getElementById('g-angle').value;
+  var date = document.getElementById('g-date').value || new Date().toISOString().slice(0,10);
+  var btn = document.getElementById('g-btn');
+  var stat = document.getElementById('g-status');
   btn.disabled = true;
-  btn.innerHTML = `<span class="spinner"></span> Generating with Claude AI...`;
-  status.textContent = 'Calling Claude API...';
-
-  setTimeout(() => {
-    status.textContent = 'Generating blog post...';
-  }, 800);
-  setTimeout(() => {
-    status.textContent = 'Generating social media posts...';
-  }, 1800);
-  setTimeout(() => {
+  btn.innerHTML = '<span class="spin"></span> Generating...';
+  stat.textContent = 'Calling Claude API...';
+  setTimeout(function(){ stat.textContent = 'Writing blog post...'; }, 900);
+  setTimeout(function(){ stat.textContent = 'Writing social posts...'; }, 1900);
+  setTimeout(function(){
     btn.disabled = false;
     btn.innerHTML = '✨ Generate with Claude AI';
-    status.textContent = '';
-
-    const topicNames = {amc:'AMC Support',cost:'Cost Savings',speed:'48hr Deploy',sustain:'E-Waste/ESG',case:'Case Study'};
-    currentGenerated = {
-      title: `InfraMitra ${topicNames[topic]}: ${audience} Use Case ${angle ? '— ' + angle : ''}`,
-      topic, audience, date,
-      excerpt: `AI-generated post covering ${topicNames[topic]} for ${audience}. ${angle ? 'Angle: ' + angle + '.' : ''} Includes data points, Indian company scenario, and call-to-action.`,
-      blog: `## ${topicNames[topic]} for ${audience}\n\n[AI-generated content based on your parameters would appear here]\n\nThis post covers:\n- Key value proposition for ${audience}\n- Real Indian company scenario ${angle ? 'featuring: ' + angle : ''}\n- Data points and cost comparisons\n- Clear call-to-action to blog.inframitra.com\n\n*In production, this would be generated by the Claude API using your prompt template.*`,
-      ig: `[Instagram post generated for ${topicNames[topic]} targeting ${audience}]\n\n${angle || 'Key insight and value proposition'}\n\n#InfraMitra #StartupIndia #${topic}`,
-      li: `[LinkedIn post generated for ${topicNames[topic]}]\n\nProfessional tone, data-driven, targeting ${audience}.\n\n→ blog.inframitra.com`,
-      fb: `[Facebook post for ${topicNames[topic]}]\nFriendly tone, shareable. Targeting ${audience}.\n\n→ blog.inframitra.com`,
-      wa: `Hi! 👋 InfraMitra daily insight:\n\n[WhatsApp message for ${topicNames[topic]}]\n\n→ blog.inframitra.com\n\nReply STOP to unsubscribe.`
+    stat.textContent = '';
+    var tnames = {amc:'AMC Support',cost:'Cost Savings',speed:'48hr Deploy',sustain:'E-Waste/ESG',case:'Case Study'};
+    var tn = tnames[topic] || topic;
+    genPost_data = {
+      id: Date.now(), status:'pending', topic:topic, audience:audience, date:date,
+      title:'InfraMitra '+tn+' — '+audience+(angle ? ' — '+angle : ''),
+      exc:'AI-generated post on '+tn+' for '+audience+(angle?'. Angle: '+angle:''),
+      ig:'[AI-generated Instagram post for '+tn+' targeting '+audience+']\n\n#InfraMitra #StartupIndia',
+      li:'[AI-generated LinkedIn post for '+tn+']\n\nProfessional tone, data-driven.\n\n-> blog.inframitra.com',
+      fb:'[AI-generated Facebook post for '+tn+']\nTargeting '+audience+'.\n\n-> blog.inframitra.com',
+      wa:'Hi! InfraMitra insight:\n\n[AI-generated WhatsApp message for '+tn+']\n\nblog.inframitra.com\nReply STOP to unsubscribe.'
     };
-
-    document.getElementById('gen-preview').style.display = 'block';
-    document.getElementById('gen-output').innerHTML = renderPostItem(currentGenerated, '');
-    addLog('✨', `AI generated new post: ${topicNames[topic]} for ${audience}`);
-    toast('✨ Post generated! Review and save to queue.', 'success');
+    document.getElementById('g-preview').style.display = 'block';
+    document.getElementById('g-out').innerHTML = makePost(genPost_data, '');
+    addLog('✨', 'AI generated: '+tn+' for '+audience);
+    toastMsg('✨ Post generated! Review and save to queue.', 'ok');
   }, 2800);
 }
 
-function regenerate() {
-  document.getElementById('gen-preview').style.display = 'none';
-  generatePost();
+function regenPost() {
+  document.getElementById('g-preview').style.display = 'none';
+  genPost();
 }
 
-function saveToQueue() {
-  if (!currentGenerated) return;
-  const newPost = { ...currentGenerated, id: Date.now(), status: 'pending' };
-  posts.unshift(newPost);
-  updateBadges();
-  document.getElementById('gen-preview').style.display = 'none';
-  toast('📥 Saved to review queue!', 'success');
-  addLog('📥', `Post saved to review queue: "${newPost.title.substring(0,50)}..."`);
+function saveQueue() {
+  if (!genPost_data) return;
+  posts.unshift(genPost_data);
+  updBadges();
+  document.getElementById('g-preview').style.display = 'none';
+  toastMsg('📥 Saved to review queue!', 'ok');
+  addLog('📥', 'Saved to queue: "'+genPost_data.title.substring(0,50)+'"');
+  genPost_data = null;
 }
 
-// ── DAILY GENERATION DEMO ──────────────────────────────────────────────────────
-function runDailyGeneration() {
-  toast('⚡ Running daily generation... 3 posts being generated by Claude API', 'success');
-  addLog('⚡', 'Manual daily generation triggered by admin');
-  setTimeout(() => {
-    toast('✅ 3 new posts generated and added to review queue!', 'success');
-    addLog('✨', '3 posts generated: AMC · Cost · Speed');
+function runDaily() {
+  toastMsg('⚡ Running daily generation — 3 posts being created by Claude API...', 'ok');
+  addLog('⚡', 'Manual daily generation triggered');
+  setTimeout(function(){
+    toastMsg('✅ 3 new posts added to review queue!', 'ok');
+    addLog('✨', '3 posts generated: AMC, Cost, Speed');
     addLog('📧', 'Review notifications sent to admin');
-    updateBadges();
-  }, 2000);
+    updBadges();
+  }, 2200);
 }
 
 // ── SETTINGS TABS ──────────────────────────────────────────────────────────────
-function settingsTab(el, tabId) {
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
-  ['tab-auto','tab-github','tab-notify'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.style.display = id === tabId ? 'block' : 'none';
+function stab(el, id) {
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('on'); });
+  el.classList.add('on');
+  ['t-auto','t-gh','t-notif'].forEach(function(tid){
+    var e = document.getElementById(tid);
+    if (e) e.style.display = tid === id ? 'block' : 'none';
   });
 }
 
 // ── MODAL ──────────────────────────────────────────────────────────────────────
-function openModal() {
-  document.getElementById('modal-overlay').classList.add('open');
-}
-function closeModal() {
-  document.getElementById('modal-overlay').classList.remove('open');
-}
+function openModal() { document.getElementById('modal-bg').classList.add('open'); }
+function closeModal() { document.getElementById('modal-bg').classList.remove('open'); }
 function saveConfig() {
-  const claudeKey = document.getElementById('claude-key').value;
-  const githubKey = document.getElementById('github-key').value;
-  const repo = document.getElementById('github-repo').value;
-  if (claudeKey) localStorage.setItem('claude_key', claudeKey);
-  if (githubKey) localStorage.setItem('github_key', githubKey);
-  if (repo) localStorage.setItem('github_repo', repo);
+  var ck = document.getElementById('ck').value;
+  var gk = document.getElementById('gk').value;
+  var gr = document.getElementById('gr').value;
+  if (ck) localStorage.setItem('claude_key', ck);
+  if (gk) localStorage.setItem('github_key', gk);
+  if (gr) localStorage.setItem('github_repo', gr);
   closeModal();
-  toast('🔑 API keys saved securely in browser!', 'success');
-  addLog('🔑', 'API keys updated by admin');
+  toastMsg('🔑 API keys saved in browser!', 'ok');
+  addLog('🔑', 'API keys updated');
 }
 
-// ── UTILITIES ──────────────────────────────────────────────────────────────────
-function updateBadges() {
-  const pending = posts.filter(p => p.status === 'pending').length;
-  const approved = posts.filter(p => p.status === 'approved').length;
-  document.getElementById('badge-review').textContent = pending;
-  document.getElementById('badge-review').style.display = pending > 0 ? '' : 'none';
-  document.getElementById('badge-approved').textContent = approved;
-  document.getElementById('badge-approved').style.display = approved > 0 ? '' : 'none';
-  document.getElementById('stat-pending').textContent = pending;
+// ── UTILS ──────────────────────────────────────────────────────────────────────
+function updBadges() {
+  var pend = posts.filter(function(p){ return p.status==='pending'; }).length;
+  var app = posts.filter(function(p){ return p.status==='approved'; }).length;
+  var br = document.getElementById('br');
+  var ba = document.getElementById('ba');
+  var sp = document.getElementById('st-pend');
+  if (br) { br.textContent = pend; br.style.display = pend > 0 ? '' : 'none'; }
+  if (ba) { ba.textContent = app; ba.style.display = app > 0 ? '' : 'none'; }
+  if (sp) sp.textContent = pend;
 }
 
-function refreshCurrentSection() {
-  if (activeSection === 'dashboard') renderDashboard();
-  else if (activeSection === 'review') renderReview();
-  else if (activeSection === 'approved') renderApproved();
-  else if (activeSection === 'published') renderPublished();
+function refresh() {
+  if (curSection==='dashboard') renderDash();
+  else if (curSection==='review') renderReview();
+  else if (curSection==='approved') renderApproved();
+  else if (curSection==='published') renderPub();
 }
 
 function addLog(icon, text) {
-  logEntries.unshift({ time: 'Just now', icon, text });
+  logs.unshift({time:'Just now', icon:icon, text:text});
 }
 
-function toast(msg, type = 'success') {
-  const el = document.getElementById('toast');
+function toastMsg(msg, type) {
+  var el = document.getElementById('toast');
   el.textContent = msg;
-  el.className = `toast show ${type}`;
-  setTimeout(() => el.classList.remove('show'), 3000);
+  el.className = 'toast show '+(type||'ok');
+  setTimeout(function(){ el.classList.remove('show'); }, 3000);
 }
 
 // ── INIT ───────────────────────────────────────────────────────────────────────
-const today = new Date().toISOString().slice(0,10);
-document.getElementById('gen-date').value = today;
-updateBadges();
-renderDashboard();
+document.getElementById('g-date').value = new Date().toISOString().slice(0,10);
+updBadges();
+renderDash();
 </script>
 </body>
 </html>
