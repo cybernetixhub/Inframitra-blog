@@ -27,10 +27,10 @@ jobs:
     steps:
       - name: Fix permissions (no sudo needed ideally)
         run: |
-          chown -R github-runner:github-runner /home/github-runner/app || true
+          chown -R github-runner:github-runner /home/github-runner/app/blog || true
       - name: Create app directory
         run: |
-          mkdir -p /home/github-runner/app
+          mkdir -p /home/github-runner/app/blog
 # ---------------------------
 # 🧱 STAGE 3: Sync Code
 # ---------------------------
@@ -45,7 +45,7 @@ jobs:
           rsync -av --delete \
             --exclude ".env" \
             --exclude "node_modules" \
-            ./ /home/github-runner/app/
+            ./ /home/github-runner/app/blog/
 # ---------------------------
 # 🧱 STAGE 4: Deploy
 # ---------------------------
@@ -57,7 +57,7 @@ jobs:
     steps:
       - name: Docker Deploy
         run: |
-          cd /home/github-runner/app
+          cd /home/github-runner/app/blog/
           docker compose down || true
           docker compose up -d --build
 # ---------------------------
