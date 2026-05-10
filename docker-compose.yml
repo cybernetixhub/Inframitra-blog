@@ -1,0 +1,13 @@
+services:
+  blog:
+    build: .
+    container_name: inframitra-blog
+
+    ports:
+      - "3002:3002"
+
+    restart: always
+
+    volumes:
+      # Optional: helps live debugging if needed
+      - ./:/usr/share/nginx/html:ro
